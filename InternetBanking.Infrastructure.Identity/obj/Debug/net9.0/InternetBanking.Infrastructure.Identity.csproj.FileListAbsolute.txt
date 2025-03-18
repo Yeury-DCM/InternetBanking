@@ -1,0 +1,12 @@
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\bin\Debug\net9.0\InternetBanking.Infrastructure.Identity.deps.json
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\bin\Debug\net9.0\InternetBanking.Infrastructure.Identity.dll
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\bin\Debug\net9.0\InternetBanking.Infrastructure.Identity.pdb
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\obj\Debug\net9.0\InternetBanking.Infrastructure.Identity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\obj\Debug\net9.0\InternetBanking.Infrastructure.Identity.AssemblyInfoInputs.cache
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\obj\Debug\net9.0\InternetBanking.Infrastructure.Identity.AssemblyInfo.cs
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\obj\Debug\net9.0\InternetBanking.Infrastructure.Identity.csproj.CoreCompileInputs.cache
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\obj\Debug\net9.0\InternetBanking.Infrastructure.Identity.sourcelink.json
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\obj\Debug\net9.0\InternetBanking.Infrastructure.Identity.dll
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\obj\Debug\net9.0\refint\InternetBanking.Infrastructure.Identity.dll
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\obj\Debug\net9.0\InternetBanking.Infrastructure.Identity.pdb
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Identity\obj\Debug\net9.0\ref\InternetBanking.Infrastructure.Identity.dll
