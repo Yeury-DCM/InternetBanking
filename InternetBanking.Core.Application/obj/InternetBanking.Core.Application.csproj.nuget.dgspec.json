@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj": {}
+    "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj": {
+    "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj",
+        "projectUniqueName": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj",
         "projectName": "InternetBanking.Core.Application",
-        "projectPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj",
+        "projectPath": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj",
         "packagesPath": "C:\\Users\\fenca\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Application\\obj\\",
         "projectStyle": "PackageReference",

@@ -2928,9 +2928,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Infrastructure.Persistence\\InternetBanking.Infrastructure.Persistence.csproj",
+      "projectUniqueName": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Infrastructure.Persistence\\InternetBanking.Infrastructure.Persistence.csproj",
       "projectName": "InternetBanking.Infrastructure.Persistence",
-      "projectPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Infrastructure.Persistence\\InternetBanking.Infrastructure.Persistence.csproj",
+      "projectPath": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Infrastructure.Persistence\\InternetBanking.Infrastructure.Persistence.csproj",
       "packagesPath": "C:\\Users\\fenca\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Infrastructure.Persistence\\obj\\",
       "projectStyle": "PackageReference",
@@ -2953,11 +2953,11 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj": {
-              "projectPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj"
+            "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj": {
+              "projectPath": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj"
             },
-            "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj": {
-              "projectPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj"
+            "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj": {
+              "projectPath": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj"
             }
           }
         }
