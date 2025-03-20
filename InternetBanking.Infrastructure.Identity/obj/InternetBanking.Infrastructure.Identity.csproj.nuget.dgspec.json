@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj": {}
+    "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj": {
+    "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj",
+        "projectUniqueName": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj",
         "projectName": "InternetBanking.Infrastructure.Identity",
-        "projectPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj",
+        "projectPath": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj",
         "packagesPath": "C:\\Users\\fenca\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\obj\\",
         "projectStyle": "PackageReference",
