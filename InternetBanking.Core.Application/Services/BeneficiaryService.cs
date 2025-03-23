@@ -84,10 +84,10 @@ namespace InternetBanking.Core.Application.Services
             {
                 beneficiaryList = beneficiaryList.Where(beneficiary => beneficiary.account.ProductNumber.Contains(accountNumber));
             }
-            if (!string.IsNullOrEmpty(productType))
-            {
-                beneficiaryList = beneficiaryList.Where(beneficiary => beneficiary.account.ProductType.Contains(productType));
-            }
+            //if (!string.IsNullOrEmpty(productType))
+            //{
+            //    beneficiaryList = beneficiaryList.Where(beneficiary => beneficiary.account.ProductType.Contains(productType));
+            //}
             
 
             return await beneficiaryList.Select(beneficiary => new BeneficiaryViewModel

@@ -346,3 +346,12 @@ C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\obj\Debug\net9.0
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.pdb
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.genruntimeconfig.cache
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\ref\InternetBanking.Web.dll
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.csproj.AssemblyReference.cache
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.AssemblyInfoInputs.cache
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.AssemblyInfo.cs
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.csproj.CoreCompileInputs.cache
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.RazorAssemblyInfo.cache
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.RazorAssemblyInfo.cs
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Web\obj\Debug\net9.0\InternetBanking.Web.sourcelink.json
