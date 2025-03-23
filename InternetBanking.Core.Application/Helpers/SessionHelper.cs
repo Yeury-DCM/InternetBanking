@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace StockApp.Core.Application.Helpers
+namespace InternetBanking.Core.Application.Helpers
 {
     public static class SessionHelper
     {

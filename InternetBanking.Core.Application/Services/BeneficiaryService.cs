@@ -4,8 +4,8 @@ using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.ViewModels.Beneficiary;
 using InternetBanking.Core.Domain.Entities;
 using Microsoft.AspNetCore.Http;
-using StockApp.Core.Application.Dtos.Account;
-using StockApp.Core.Application.Helpers;
+using InternetBanking.Core.Application.Dtos.Account;
+using InternetBanking.Core.Application.Helpers;
 
 namespace InternetBanking.Core.Application.Services
 {

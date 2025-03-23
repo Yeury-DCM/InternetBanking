@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace StockApp.Core.Application.Dtos.Account
+namespace InternetBanking.Core.Application.Dtos.Account
 {
     public class AuthenticationResponse
     {
