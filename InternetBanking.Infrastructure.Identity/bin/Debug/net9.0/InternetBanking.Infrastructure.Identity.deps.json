@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "InternetBanking.Infrastructure.Identity/1.0.0": {
+        "runtime": {
+          "InternetBanking.Infrastructure.Identity.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "InternetBanking.Infrastructure.Identity/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

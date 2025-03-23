@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\InternetBanking.Web.props" />
+</Project>
