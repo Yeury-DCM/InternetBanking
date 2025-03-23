@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InternetBanking.Infrastructure.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03fc7223177837f25a2579b08290f56ee0351857")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac04af7573a95b20e1e4b5e86353c783a014b587")]
 [assembly: System.Reflection.AssemblyProductAttribute("InternetBanking.Infrastructure.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InternetBanking.Infrastructure.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
