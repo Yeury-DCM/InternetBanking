@@ -1,4 +1,6 @@
-﻿using InternetBanking.Infrastructure.Persistence.Contexts;
+﻿using InternetBanking.Core.Application.Interfaces.Repositories;
+using InternetBanking.Infrastructure.Persistence.Contexts;
+using InternetBanking.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,11 @@ namespace InternetBanking.Infrastructure.Persistence
                 var connectionString = configuration.GetConnectionString("DefaultConnection");
                 services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString, m=> m.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
             }
+            #endregion
+
+            #region Repositories
+            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepository<>));
+
             #endregion
         }
     }
