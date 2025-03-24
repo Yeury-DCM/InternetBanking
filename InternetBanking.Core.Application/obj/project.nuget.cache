@@ -1,20 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "LkB7ZRkHJ2s=",
+  "dgSpecHash": "buSA06iPSbo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj",
+  "projectFilePath": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fenca\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\fenca\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\fenca\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
     "C:\\Users\\fenca\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Application\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

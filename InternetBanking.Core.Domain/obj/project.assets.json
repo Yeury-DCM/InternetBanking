@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
       "projectName": "InternetBanking.Core.Domain",
-      "projectPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
+      "projectPath": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
       "packagesPath": "C:\\Users\\fenca\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Domain\\obj\\",
       "projectStyle": "PackageReference",
@@ -75,13 +75,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Domain\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
