@@ -78,7 +78,7 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Product>()
-               .HasOne<ProductType>(p => p.ProductTypeID)
+               .HasOne<ProductType>(p => p.ProductType)
                .WithMany(pt => pt.Products)
                .HasForeignKey(p => p.ProductTypeID)
                .OnDelete(DeleteBehavior.NoAction);
@@ -148,7 +148,7 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
             modelBuilder.Entity<ProductType>()
               .HasMany<Product>(pt => pt.Products)
               .WithOne(p => p.ProductTypeID)
-              .HasForeignKey(p => p.ProductTypeID)
+              .HasForeignKey(p => p.ProductType)
               .OnDelete(DeleteBehavior.NoAction);
             #endregion
             #endregion
