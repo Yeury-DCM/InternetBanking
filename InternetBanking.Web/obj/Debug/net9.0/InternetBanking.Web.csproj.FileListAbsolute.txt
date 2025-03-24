@@ -7,6 +7,7 @@ C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\bin\Debug\net9.0
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\bin\Debug\net9.0\InternetBanking.Web.runtimeconfig.json
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\bin\Debug\net9.0\InternetBanking.Web.dll
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\bin\Debug\net9.0\InternetBanking.Web.pdb
+C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\bin\Debug\net9.0\AutoMapper.dll
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\bin\Debug\net9.0\Azure.Core.dll
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\bin\Debug\net9.0\Azure.Identity.dll
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Web\bin\Debug\net9.0\Humanizer.dll

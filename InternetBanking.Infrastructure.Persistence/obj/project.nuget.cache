@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "2hI2XuBvigs=",
+  "dgSpecHash": "mZ3FvxT7Iog=",
   "success": true,
   "projectFilePath": "C:\\Users\\darie\\Desktop\\Universidad\\Cuatrimestre 5\\Programacion III\\InternetBanking\\InternetBanking\\InternetBanking.Infrastructure.Persistence\\InternetBanking.Infrastructure.Persistence.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\darie\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\darie\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\darie\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\darie\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
@@ -63,5 +64,12 @@
     "C:\\Users\\darie\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\darie\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\darie\\Desktop\\Universidad\\Cuatrimestre 5\\Programacion III\\InternetBanking\\InternetBanking\\InternetBanking.Infrastructure.Persistence\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
