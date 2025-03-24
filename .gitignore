@@ -1,11 +1,2 @@
-# Ignora todas las carpetas bin y obj
 **/bin/
 **/obj/
-.vs/
-
-# Rutas específicas de tu proyecto
-InternetBanking.Core.Application/obj/** 
-InternetBanking.Core.Domain/obj/
-InternetBanking.Infrastructure.Identity/obj/
-InternetBanking.Infrastructure.Persistence/obj/
-InternetBanking.Infrastructure.Shared/obj/
