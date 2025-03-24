@@ -18,7 +18,7 @@ namespace InternetBanking.Core.Domain.Entities
 
         //Navegation Properties
         public User User { get; set; }
-        public ProductType ProductType { get; set; }
+        public ProductType productType { get; set; }
 
         public ICollection<Transaction> transactions { get; set; } = new List<Transaction>();
     }
