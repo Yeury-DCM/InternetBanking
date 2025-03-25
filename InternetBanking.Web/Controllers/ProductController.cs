@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using InternetBanking.Core.Application.Enums;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBanking.Web.Controllers
 {
+    [Authorize (Roles = "Client")]
     public class ProductController : Controller
     {
         // GET: ProductController

@@ -25,7 +25,7 @@ namespace InternetBanking.Infrastructure.Identity.Seeds
                 var user = await userManager.FindByEmailAsync(defaultUser.Email);
                 if (user == null)
                 {
-                    await userManager.CreateAsync(defaultUser, "123Pa$$word!");
+                    await userManager.CreateAsync(defaultUser, "1234");
                     await userManager.AddToRoleAsync(defaultUser, Roles.Client.ToString());
                 }
 

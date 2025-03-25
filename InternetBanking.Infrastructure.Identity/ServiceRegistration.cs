@@ -1,7 +1,9 @@
 ﻿
+using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Infrastructure.Identity.Contexts;
 using InternetBanking.Infrastructure.Identity.Entities;
 using InternetBanking.Infrastructure.Identity.Seeds;
+using InternetBanking.Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -45,18 +47,36 @@ namespace InternetBanking.Infrastructure.Identity
                 option.TokenLifespan = TimeSpan.FromHours(1);
             });
 
+
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;         
             }).AddCookie(IdentityConstants.ApplicationScheme, options =>
             {
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.SlidingExpiration = true;
-                options.LoginPath = "/User";
-                options.LoginPath = "/User/Denied";
+                options.LoginPath = "/Account/Login";
+                options.LoginPath = "/Account/AccesDenied";
             });
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 4;
+
+
+            });
+            #endregion
+
+            #region Services
+            services.AddTransient<IAccountService, AccountService>();
             #endregion
         }
 
