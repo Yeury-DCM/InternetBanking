@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EMlsA7Dnt8s=",
+
+  "dgSpecHash": "nsxFA6zGc8I=",
   "success": true,
-  "projectFilePath": "C:\\Users\\darie\\Desktop\\Universidad\\Cuatrimestre 5\\Programacion III\\InternetBanking\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
+  "projectFilePath": "C:\\Users\\YEURY-DCM\\source\\repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
+
   "expectedPackageFiles": [],
   "logs": []
 }
