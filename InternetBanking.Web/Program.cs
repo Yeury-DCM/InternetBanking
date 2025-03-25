@@ -1,12 +1,18 @@
+using InternetBanking.Infrastructure.Identity;
+using InternetBanking.Infrastructure.Identity.Entities;
+using InternetBanking.Infrastructure.Identity.Seeds;
 using InternetBanking.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddPersistenceLayer(builder.Configuration);
+builder.Services.AddIdentityLayer(builder.Configuration);
 
 var app = builder.Build();
 
+await app.Services.RunSeedAsync(builder.Configuration);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -28,4 +34,4 @@ app.MapControllerRoute(
     .WithStaticAssets();
 
 
-app.Run();
+await app.RunAsync();
