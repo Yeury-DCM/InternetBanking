@@ -1,99 +1,89 @@
 ﻿using InternetBanking.Core.Application.Interfaces.Repositories;
+using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.ViewModels.Beneficiary;
 using InternetBanking.Core.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InternetBanking.Core.Application.Services
+public class BeneficiaryService
 {
-    public class BeneficiaryService
+    private readonly IBeneficiaryRepository _beneficiaryRepository;
+    private readonly IAccountService _accountService;
+
+    public BeneficiaryService(IBeneficiaryRepository beneficiaryRepository, IAccountService accountService)
     {
-        private readonly IBeneficiaryRepository _beneficiaryRepository;
-        private readonly UserManager<IdentityUser> _userManager;
+        _beneficiaryRepository = beneficiaryRepository;
+        _accountService = accountService;
+    }
 
-        public BeneficiaryService(IBeneficiaryRepository beneficiaryRepository, UserManager<IdentityUser> userManager)
+    public async Task Add(SaveBeneficiaryViewModel vm)
+    {
+        var beneficiary = new Beneficiary
         {
-            _beneficiaryRepository = beneficiaryRepository;
-            _userManager = userManager;
+            Id = vm.Id,
+            UserID = vm.UserId,
+            ProductID = vm.ProductId
+        };
+
+        await _beneficiaryRepository.AddAsync(beneficiary);
+    }
+
+    public async Task Update(SaveBeneficiaryViewModel vm)
+    {
+        var beneficiary = await _beneficiaryRepository.GetByIdAsync(vm.Id);
+
+        if (beneficiary == null)
+        {
+            throw new Exception("Beneficiary not found.");
         }
 
-        public async Task Add(SaveBeneficiaryViewModel vm)
+        beneficiary.UserID = vm.UserId;
+        beneficiary.ProductID = vm.ProductId;
+
+        await _beneficiaryRepository.UpdateAsync(beneficiary, beneficiary.Id);
+    }
+
+    public async Task<SaveBeneficiaryViewModel> GetById(int id)
+    {
+        var beneficiary = await _beneficiaryRepository.GetByIdAsync(id);
+        if (beneficiary == null) return null;
+
+        var user = await _accountService.GetUserByIdAsync(beneficiary.UserID);
+        if (user == null) return null;
+
+        return new SaveBeneficiaryViewModel
         {
-            Beneficiary beneficiary = new()
-            {
-                Id = vm.Id, // In-Built Copilot help - in case of needed removal
-                UserID = vm.UserId,
-                ProductID = vm.ProductId
-            };
+            Id = beneficiary.Id,
+            UserId = beneficiary.UserID,
+            ProductId = beneficiary.ProductID,
+            BeneficiaryFirstName = user.FirstName,
+            BeneficiaryLastName = user.LastName
+        };
+    }
 
-            await _beneficiaryRepository.AddAsync(beneficiary);
-        }
+    public async Task<List<BeneficiaryViewModel>> GetAllViewModel()
+    {
+        var beneficiaries = await _beneficiaryRepository.GetAllAsync();
 
-        public async Task Update(SaveBeneficiaryViewModel vm)
+        var beneficiaryViewModels = new List<BeneficiaryViewModel>();
+        foreach (var beneficiary in beneficiaries)
         {
-            var beneficiary = await _beneficiaryRepository.GetByIdAsync(vm.Id);
+            var user = await _accountService.GetUserByIdAsync(beneficiary.UserID);
+            if (user == null) continue;
 
-            if (beneficiary == null)
-            {
-                throw new Exception("Beneficiary not found.");
-            }
-
-            beneficiary.UserID = vm.UserId;
-            beneficiary.ProductID = vm.ProductId;
-
-            await _beneficiaryRepository.UpdateAsync(beneficiary, beneficiary.Id);
-        }
-
-        public async Task<SaveBeneficiaryViewModel> GetById(int id)
-        {
-            var beneficiary = await _beneficiaryRepository.GetByIdAsync(id);
-            if (beneficiary == null) return null;
-
-            var user = await _userManager.FindByIdAsync(beneficiary.UserID.ToString());
-            if (user == null) return null;
-
-            return new SaveBeneficiaryViewModel
+            beneficiaryViewModels.Add(new BeneficiaryViewModel
             {
                 Id = beneficiary.Id,
                 UserId = beneficiary.UserID,
                 ProductId = beneficiary.ProductID,
-                BeneficiaryFirstName = user.UserName 
-            };
+                BeneficiaryFullName = $"{user.FirstName} {user.LastName}",
+                ProductType = beneficiary.Account?.Type ?? "Unknown",
+                AccountNumber = beneficiary.Account?.Number ?? "Unknown"
+            });
         }
 
-        public async Task<List<BeneficiaryViewModel>> GetAllViewModel()
-        {
-            var beneficiaries = await _beneficiaryRepository.GetAllAsync();
-
-            return beneficiaries.Select(async b =>
-            {
-                var user = await _userManager.FindByIdAsync(b.UserID.ToString());
-                return new BeneficiaryViewModel
-                {
-                    Id = b.Id,
-                    UserId = b.UserID,
-                    ProductId = b.ProductID,
-                    BeneficiaryFullName = user?.UserName 
-                };
-            })
-            .Select(t => t.Result)
-            .ToList();
-        }
-
-        public async Task Delete(int id)
-        {
-            var beneficiary = await _beneficiaryRepository.GetByIdAsync(id);
-
-            if (beneficiary == null)
-            {
-                throw new KeyNotFoundException($"Beneficiary with ID {id} not found.");
-            }
-
-            await _beneficiaryRepository.DeleteAsync(beneficiary);
-        }
-
+        return beneficiaryViewModels;
     }
 }

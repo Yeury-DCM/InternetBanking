@@ -12,7 +12,6 @@
     <Folder Include="Mapping\" />
     <Folder Include="Helpers\" />
     <Folder Include="Dtos\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>

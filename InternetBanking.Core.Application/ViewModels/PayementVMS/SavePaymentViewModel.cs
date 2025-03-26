@@ -31,6 +31,6 @@ namespace InternetBanking.Core.Application.ViewModels.PayementVMS
         public PaymentType PaymentType { get; set; }
 
         public ICollection<ProductViewModel> products { get; set; } = new List<ProductViewModel>();
-        public ICollection<BeneficiaryViewModel> beneficiaries { get; set; } = new List<BeneficiaryViewModel>();
+        //public ICollection<Beneficiary> beneficiaries { get; set; } = new List<Beneficiary>();
     }
 }
