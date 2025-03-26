@@ -62,17 +62,17 @@ namespace InternetBanking.Infrastructure.Identity
                 options.LoginPath = "/Account/LogIn";
                 options.LogoutPath = "/Account/LogOut";
                 options.AccessDeniedPath = "/Account/AccessDenied";
-               
+
 
                 options.Events = new CookieAuthenticationEvents
                 {
-                    OnValidatePrincipal = async context =>
+                    OnValidatePrincipal = async context => 
                     {
-                       
+
                     },
                     OnSigningOut = context =>
                     {
-                        // Limpiar la cookie explícitamente
+
                         context.CookieOptions.Expires = DateTime.UtcNow.AddDays(-1);
                         return Task.CompletedTask;
                     }
@@ -97,6 +97,8 @@ namespace InternetBanking.Infrastructure.Identity
             #region Services
             services.AddTransient<IAccountService, AccountService>();
             #endregion
+
+            
         }
 
 

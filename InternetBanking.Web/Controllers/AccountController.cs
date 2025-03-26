@@ -22,10 +22,18 @@ namespace InternetBanking.Web.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult LogIn()
+        public async Task<IActionResult> LogIn()
         {
-            bool isAuthenticated = User.Identity.IsAuthenticated;
+
+            bool isAuthenticated = User.Identity!.IsAuthenticated;
             bool isAdmin = User.IsInRole("Admin");
+            var userSession = _httpContextAccessor.HttpContext!.Session.Get<AuthenticationResponse>("user");
+
+            if (isAuthenticated && userSession == null)
+            {
+                return await LogOut();
+               
+            }
 
             if (!isAuthenticated)
             {
