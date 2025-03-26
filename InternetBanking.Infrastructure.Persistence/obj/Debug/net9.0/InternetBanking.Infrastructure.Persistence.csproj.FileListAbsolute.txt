@@ -16,3 +16,21 @@ C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Persi
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\refint\InternetBanking.Infrastructure.Persistence.dll
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\InternetBanking.Infrastructure.Persistence.pdb
 C:\Users\fenca\Source\Repos\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\ref\InternetBanking.Infrastructure.Persistence.dll
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\bin\Debug\net9.0\InternetBanking.Infrastructure.Persistence.deps.json
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\bin\Debug\net9.0\InternetBanking.Infrastructure.Persistence.dll
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\bin\Debug\net9.0\InternetBanking.Infrastructure.Persistence.pdb
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\bin\Debug\net9.0\InternetBanking.Core.Application.dll
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\bin\Debug\net9.0\InternetBanking.Core.Domain.dll
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\bin\Debug\net9.0\InternetBanking.Core.Application.pdb
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\bin\Debug\net9.0\InternetBanking.Core.Domain.pdb
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\InternetBanking.Infrastructure.Persistence.csproj.AssemblyReference.cache
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\InternetBanking.Infrastructure.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\InternetBanking.Infrastructure.Persistence.AssemblyInfoInputs.cache
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\InternetBanking.Infrastructure.Persistence.AssemblyInfo.cs
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\InternetBanking.Infrastructure.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\InternetBanking.Infrastructure.Persistence.sourcelink.json
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\Internet.DD4CA8A8.Up2Date
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\InternetBanking.Infrastructure.Persistence.dll
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\refint\InternetBanking.Infrastructure.Persistence.dll
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\InternetBanking.Infrastructure.Persistence.pdb
+C:\Users\darie\Desktop\Universidad\Cuatrimestre 5\Programacion III\InternetBanking\InternetBanking\InternetBanking.Infrastructure.Persistence\obj\Debug\net9.0\ref\InternetBanking.Infrastructure.Persistence.dll
