@@ -8,31 +8,23 @@
     "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\darie\\.nuget\\packages\\": {},
+    "C:\\Users\\fenca\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\darie\\Desktop\\Universidad\\Cuatrimestre 5\\Programacion III\\InternetBanking\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
       "projectName": "InternetBanking.Core.Domain",
-      "projectPath": "C:\\Users\\darie\\Desktop\\Universidad\\Cuatrimestre 5\\Programacion III\\InternetBanking\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
-      "packagesPath": "C:\\Users\\darie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\darie\\Desktop\\Universidad\\Cuatrimestre 5\\Programacion III\\InternetBanking\\InternetBanking\\InternetBanking.Core.Domain\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
-      "projectName": "InternetBanking.Core.Domain",
-      "projectPath": "C:\\Users\\fenca\\source\\repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
+      "projectPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Domain\\InternetBanking.Core.Domain.csproj",
       "packagesPath": "C:\\Users\\fenca\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\fenca\\Source\\Repos\\InternetBanking\\InternetBanking.Core.Domain\\obj\\",
->>>>>>> 446d63ab5d5a221b5529fd4a663935cc6c57b40d
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\darie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\fenca\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -41,7 +33,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -81,7 +72,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

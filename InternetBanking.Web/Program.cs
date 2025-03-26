@@ -1,9 +1,12 @@
 using InternetBanking.Infrastructure.Persistence;
+using InternetBanking.Core.Application;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddPersistenceLayer(builder.Configuration);
+builder.Services.AddApplicationLayer();
+
 
 var app = builder.Build();
 
