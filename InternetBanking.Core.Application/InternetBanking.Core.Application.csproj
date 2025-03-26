@@ -9,7 +9,8 @@
   <ItemGroup>
     <Folder Include="Interfaces\Repositories\" />
     <Folder Include="Mapping\" />
-    <Folder Include="Services\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Dtos\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,6 +9,6 @@ namespace InternetBanking.Core.Domain.Common
     public class BaseBasicTypeEntity
     {
         public required int Id { get; set; }
-        public required int Type { get; set; }
+        public required string Type { get; set; }
     }
 }
