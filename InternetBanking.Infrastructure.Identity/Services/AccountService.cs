@@ -5,6 +5,7 @@ using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.ViewModels.UserVMS;
 using InternetBanking.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace InternetBanking.Infrastructure.Identity.Services
 {
@@ -113,7 +114,19 @@ namespace InternetBanking.Infrastructure.Identity.Services
 
         public async Task<List<UserViewModel>> GetAllUserViewModelsAsync()
         {
-            return new List<UserViewModel>();
+            var users = await _userManager.Users.ToListAsync(); // Obtiene los usuarios primero
+
+            var userViewModels = await Task.WhenAll(users.Select(async user => new UserViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                IdentificationNumer = user.IdentificationNumer,
+                UserName = user.UserName!,
+                Email = user.Email,
+                Roles = (List<string>) await _userManager.GetRolesAsync(user) // Ahora sí puedes usar await
+            }));
+
+            return userViewModels.ToList();
         }
 
 

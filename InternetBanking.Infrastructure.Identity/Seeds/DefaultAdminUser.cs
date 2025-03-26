@@ -26,7 +26,7 @@ namespace InternetBanking.Infrastructure.Identity.Seeds
                 if (user == null)
                 {
                     await userManager.CreateAsync(defaultUser, "1234");
-                    await userManager.AddToRoleAsync(defaultUser, Roles.Client.ToString());
+                    await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
                 }
 
             }
