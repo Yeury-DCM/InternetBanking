@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBanking.Web.Controllers
 {
+    [Authorize]
     [Authorize(Roles = "Client")]
     public class BeneficiaryController : Controller
     {

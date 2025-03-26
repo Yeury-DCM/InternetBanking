@@ -1,4 +1,5 @@
 ﻿using InternetBanking.Core.Application.Dtos;
+using InternetBanking.Core.Application.Enums;
 using InternetBanking.Core.Application.Helpers;
 using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.ViewModels.AccountVMS;
@@ -42,12 +43,22 @@ namespace InternetBanking.Web.Controllers
 
             _httpContextAccessor.HttpContext!.Session.Set<AuthenticationResponse>("user", response);
 
-            return RedirectToRoute(new { action = "Index", controller = "Product" });
-            
+            if(response.Roles.Any(r => r == Roles.Client.ToString()))
+            {
+                return RedirectToRoute(new { action = "Index", controller = "Product" });
+
+            }else if(response.Roles.Any(r => r == Roles.Admin.ToString()))
+            {
+                return RedirectToRoute(new { action = "Index", controller = "Dashboard" });
+
+            }
+
+            return View(loginViewModel);
+
 
         }
 
-        public IActionResult AccesDenied()
+        public IActionResult AccessDenied()
         {
             return View();
         }

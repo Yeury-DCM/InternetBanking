@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.ViewModels.DasboardVMS;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InternetBanking.Web.Controllers
 {
+    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
         private readonly IDashboardService _dasboardService;

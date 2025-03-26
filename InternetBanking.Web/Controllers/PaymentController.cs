@@ -2,10 +2,14 @@
 using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.Services.Factory;
 using InternetBanking.Core.Application.ViewModels.PayementVMS;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBanking.Web.Controllers
 {
+    [Authorize]
+    [Authorize(Roles = "Client")]
+
     public class PaymentController : Controller
     {
         private readonly PaymentServiceFactory _paymentServiceFactory;
