@@ -18,7 +18,7 @@ namespace InternetBanking.Infrastructure.Identity
         {
             #region "Context"
 
-            if (configuration.GetValue<bool>("UserInMemoryDatabase"))
+            if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             {
                 services.AddDbContext<IdentityContext>(options => options.UseInMemoryDatabase("IdentityDb"));
             }

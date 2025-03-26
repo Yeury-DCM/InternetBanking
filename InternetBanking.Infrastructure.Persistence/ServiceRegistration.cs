@@ -17,7 +17,7 @@ namespace InternetBanking.Infrastructure.Persistence
         public static void AddPersistenceLayer(this IServiceCollection services, IConfiguration configuration)
         {
             #region Database configuration
-            if (configuration.GetValue<bool>("UserInMemoryDataBase"))
+            if (configuration.GetValue<bool>("UseInMemoryDataBase"))
             {
                 services.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase("AppData"));
             }

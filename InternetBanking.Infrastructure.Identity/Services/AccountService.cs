@@ -2,6 +2,7 @@
 using InternetBanking.Core.Application.Dtos;
 using InternetBanking.Core.Application.Enums;
 using InternetBanking.Core.Application.Interfaces.Services;
+using InternetBanking.Core.Application.ViewModels.UserVMS;
 using InternetBanking.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 
@@ -109,6 +110,12 @@ namespace InternetBanking.Infrastructure.Identity.Services
 
             return response;
         }
+
+        public async Task<List<UserViewModel>> GetAllUserViewModelsAsync()
+        {
+            return new List<UserViewModel>();
+        }
+
 
 
     }
