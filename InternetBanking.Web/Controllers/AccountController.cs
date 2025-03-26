@@ -3,10 +3,13 @@ using InternetBanking.Core.Application.Enums;
 using InternetBanking.Core.Application.Helpers;
 using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.ViewModels.AccountVMS;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace InternetBanking.Web.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
@@ -17,16 +20,35 @@ namespace InternetBanking.Web.Controllers
             _accountService = accountService;
             _httpContextAccessor = httpContextAccessor;
         }
-        public IActionResult Login()
+
+        [AllowAnonymous]
+        public IActionResult LogIn()
         {
-            return View(new LoginViewModel());
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+            bool isAdmin = User.IsInRole("Admin");
+
+            if (!isAuthenticated)
+            {
+                return View(new LoginViewModel());
+            }
+
+            if (isAdmin)
+            {
+                return RedirectToRoute(new { action = "Index", controller = "Dashboard" });
+            }
+            else
+            {
+                return RedirectToRoute(new { action = "Index", controller = "Product" });
+            }
+
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        public async Task<IActionResult> LogIn(LoginViewModel loginViewModel)
         {
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(loginViewModel);
             }
@@ -34,7 +56,7 @@ namespace InternetBanking.Web.Controllers
 
             AuthenticationResponse response = await _accountService.AuthenticateAsync(request);
 
-            if(!response.IsSucess)
+            if (!response.IsSucess)
             {
                 loginViewModel.IsSucess = false;
                 loginViewModel.ErrorMessage = response.ErrorMessage;
@@ -43,11 +65,12 @@ namespace InternetBanking.Web.Controllers
 
             _httpContextAccessor.HttpContext!.Session.Set<AuthenticationResponse>("user", response);
 
-            if(response.Roles.Any(r => r == Roles.Client.ToString()))
+            if (response.Roles.Any(r => r == Roles.Client.ToString()))
             {
                 return RedirectToRoute(new { action = "Index", controller = "Product" });
 
-            }else if(response.Roles.Any(r => r == Roles.Admin.ToString()))
+            }
+            else if (response.Roles.Any(r => r == Roles.Admin.ToString()))
             {
                 return RedirectToRoute(new { action = "Index", controller = "Dashboard" });
 
@@ -58,10 +81,20 @@ namespace InternetBanking.Web.Controllers
 
         }
 
+        public async Task<IActionResult> LogOut()
+        {
+            await _accountService.SignOutAsync();
+            HttpContext.Session.Remove("user");
+            return RedirectToAction("LogIn");
+        }
+
+        [AllowAnonymous]
         public IActionResult AccessDenied()
         {
             return View();
         }
+
+
 
 
     }

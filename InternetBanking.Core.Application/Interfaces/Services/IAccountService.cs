@@ -15,5 +15,6 @@ namespace InternetBanking.Core.Application.Interfaces.Services
         Task SignOutAsync();
 
         Task<List<UserViewModel>> GetAllUserViewModelsAsync();
+        Task<UserViewModel> GetUserViewModelByIdAsync(string id);
     }
 }

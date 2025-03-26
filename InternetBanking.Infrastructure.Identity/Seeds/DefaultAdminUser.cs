@@ -16,7 +16,8 @@ namespace InternetBanking.Infrastructure.Identity.Seeds
                 UserName = "adminUser",
                 IdentificationNumer = "001-0034009-3",
                 EmailConfirmed = true,
-                PhoneNumberConfirmed = true
+                PhoneNumberConfirmed = true,
+                IsActive = true
             };
 
             if (userManager.Users.All(u => u.Id != defaultUser.Id))

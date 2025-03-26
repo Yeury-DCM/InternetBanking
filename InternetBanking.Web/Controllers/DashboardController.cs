@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace InternetBanking.Web.Controllers
 {
-    [Authorize]
+    
     [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {

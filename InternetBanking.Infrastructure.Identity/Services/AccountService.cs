@@ -123,12 +123,31 @@ namespace InternetBanking.Infrastructure.Identity.Services
                 IdentificationNumer = user.IdentificationNumer,
                 UserName = user.UserName!,
                 Email = user.Email,
-                Roles = (List<string>) await _userManager.GetRolesAsync(user) // Ahora sí puedes usar await
+                Roles = (List<string>) await _userManager.GetRolesAsync(user),
+                IsActive = user.IsActive
+
             }));
 
             return userViewModels.ToList();
         }
 
+        public async Task<UserViewModel> GetUserViewModelByIdAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            UserViewModel userViewModel = new()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                IdentificationNumer = user.IdentificationNumer,
+                UserName = user.UserName!,
+                Email = user.Email,
+                Roles = (List<string>)await _userManager.GetRolesAsync(user),
+                IsActive = user.IsActive
+            };
+
+            return userViewModel;
+        }
 
 
     }

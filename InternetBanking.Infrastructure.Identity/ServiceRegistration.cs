@@ -4,6 +4,7 @@ using InternetBanking.Infrastructure.Identity.Contexts;
 using InternetBanking.Infrastructure.Identity.Entities;
 using InternetBanking.Infrastructure.Identity.Seeds;
 using InternetBanking.Infrastructure.Identity.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -58,9 +59,27 @@ namespace InternetBanking.Infrastructure.Identity
             {
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.SlidingExpiration = true;
-                options.LoginPath = "/Account/Login";
-                options.LoginPath = "/Account/AccesDenied";
+                options.LoginPath = "/Account/LogIn";
+                options.LogoutPath = "/Account/LogOut";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+               
+
+                options.Events = new CookieAuthenticationEvents
+                {
+                    OnValidatePrincipal = async context =>
+                    {
+                       
+                    },
+                    OnSigningOut = context =>
+                    {
+                        // Limpiar la cookie explícitamente
+                        context.CookieOptions.Expires = DateTime.UtcNow.AddDays(-1);
+                        return Task.CompletedTask;
+                    }
+                };
             });
+
+
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -79,6 +98,7 @@ namespace InternetBanking.Infrastructure.Identity
             services.AddTransient<IAccountService, AccountService>();
             #endregion
         }
+
 
         public async static Task RunSeedAsync (this IServiceProvider appServices, IConfiguration configuration)
         {

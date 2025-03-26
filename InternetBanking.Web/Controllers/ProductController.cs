@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBanking.Web.Controllers
 {
-    [Authorize]
-    [Authorize (Roles = "Client")]
+    [Authorize(Roles = "Client")]
     public class ProductController : Controller
     {
         // GET: ProductController

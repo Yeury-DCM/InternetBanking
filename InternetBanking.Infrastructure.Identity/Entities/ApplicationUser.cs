@@ -8,7 +8,7 @@ namespace InternetBanking.Infrastructure.Identity.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string IdentificationNumer { get; set; }
-        bool IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         
     }

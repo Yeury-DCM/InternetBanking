@@ -15,6 +15,8 @@ namespace InternetBanking.Web.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            bool isauthenticated = User.Identity.IsAuthenticated;
+
             return View(await _accountService.GetAllUserViewModelsAsync());
         }
     }
