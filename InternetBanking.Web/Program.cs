@@ -3,6 +3,7 @@ using InternetBanking.Infrastructure.Identity.Entities;
 using InternetBanking.Infrastructure.Identity.Seeds;
 using InternetBanking.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
+using InternetBanking.Core.Application;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,6 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddPersistenceLayer(builder.Configuration);
 builder.Services.AddIdentityLayer(builder.Configuration);
 builder.Services.AddSession();
+
+builder.Services.AddApplicationLayer();
 
 
 var app = builder.Build();

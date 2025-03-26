@@ -24,7 +24,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-               @* Menu *@
+               @* Menu para clientes *@
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
 
@@ -44,7 +44,7 @@
 
                                 @* Enlace a la vista de pagos expreso *@
 
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="Privacy">Expreso</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Payment" asp-action="Express">Expreso</a></li>
 
                                 @* Validar que el usuario tenga una tarjeta de credito para mostrar esta opcion *@
                                 @* Enlace a la vista de pagos de tarjeta de credito *@
@@ -76,6 +76,17 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Transfer" asp-action="Index">Transferencia</a>
+                        </li>
+
+
+                        @* Menú de admins *@
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Usuarios">Transferencia</a>
                         </li>
                     </ul>
                 </div>
