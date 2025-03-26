@@ -1,0 +1,29 @@
+﻿@model IEnumerable<InternetBanking.Core.Application.ViewModels.Beneficiary.BeneficiaryViewModel>
+
+@{
+    ViewData["Title"] = "Beneficiaries";
+}
+
+<h1>Mis Beneficiarios</h1>
+
+<div class="row">
+
+    <button type="submit" class="btn btn-primary">Add Beneficiary</button>
+    @foreach (InternetBanking.Core.Application.ViewModels.Beneficiary.BeneficiaryViewModel beneficiary in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <h5 class="card-title mt-2">@beneficiary.BeneficiaryFullName</h5>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a asp-controller="Beneficiary" asp-action="Delete" asp-route-id="@beneficiary.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                            <a asp-action="Edit" asp-route-id="@beneficiary.Id" class="btn btn-outline-secondary">Editar beneficiario</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
