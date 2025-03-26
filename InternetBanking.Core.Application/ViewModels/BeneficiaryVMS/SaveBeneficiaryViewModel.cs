@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InternetBanking.Core.Application.ViewModels.Beneficiary
+namespace InternetBanking.Core.Application.ViewModels.BeneficiaryVMS
 {
     public class SaveBeneficiaryViewModel
     {

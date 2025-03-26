@@ -25,7 +25,7 @@ namespace InternetBanking.Core.Application.Services
             if (creditCard == null || savingsAccount == null)
                 throw new Exception("Tarjeta de crédito o cuenta de ahorro no encontrada.");
 
-            if (creditCard.productType.Type != /* Id de tarjeta de credito*/ || savingsAccount.productType.Type != /* Id de cuenta de ahorro*/)
+            if (creditCard.productType.Type != "Tarjeta de Credito" || savingsAccount.productType.Type != "Cuenta de ahorro")
                 throw new Exception("Productos no válidos para esta operación.");
 
             if (creditCard.Limit.HasValue && (creditCard.Limit.Value - creditCard.Balance) < vm.Amount) 

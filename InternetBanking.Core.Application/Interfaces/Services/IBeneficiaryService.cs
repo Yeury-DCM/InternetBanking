@@ -1,4 +1,4 @@
-﻿using InternetBanking.Core.Application.ViewModels.Beneficiary;
+﻿using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
 using InternetBanking.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;

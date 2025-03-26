@@ -9,14 +9,14 @@ namespace InternetBanking.Core.Domain.Entities
     public class User
     {
         public required int Id { get; set; }
-        public required int UserName { get; set; }
+        public required string UserName { get; set; }
         public required string Name { get; set; }
-        public required string  LastName { get; set; }
-        public required string Identification  { get; set; }
-        public required int Mail { get; set; }
-        public required int Password { get; set; }
+        public required string LastName { get; set; }
+        public required string Identification { get; set; }
+        public required string Mail { get; set; }
+        public required string Password { get; set; }
         public required int UserTypeID { get; set; }
-        public required int Status { get; set; }
+        public required bool Status { get; set; }
 
         //Navegation Properties
 
