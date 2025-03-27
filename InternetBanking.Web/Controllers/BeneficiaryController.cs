@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBanking.Web.Controllers
 {
-     
+    [ApiController]
+    [Route("api/[controller]")]
     [Authorize(Roles = "Client")]
 
     public class BeneficiaryController : Controller
@@ -22,7 +23,6 @@ namespace InternetBanking.Web.Controllers
             _beneficiaryService = beneficiaryService;
         }
 
-        // GET: api/Beneficiary
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -37,7 +37,6 @@ namespace InternetBanking.Web.Controllers
             }
         }
 
-        // GET: api/Beneficiary/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -54,7 +53,6 @@ namespace InternetBanking.Web.Controllers
             }
         }
 
-        // POST: api/Beneficiary
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] SaveBeneficiaryViewModel vm)
         {
@@ -72,7 +70,6 @@ namespace InternetBanking.Web.Controllers
             }
         }
 
-        // PUT: api/Beneficiary/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] SaveBeneficiaryViewModel vm)
         {
@@ -90,7 +87,6 @@ namespace InternetBanking.Web.Controllers
             }
         }
 
-        // DELETE: api/Beneficiary/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
