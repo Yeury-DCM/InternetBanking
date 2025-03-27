@@ -1,4 +1,6 @@
-﻿using InternetBanking.Infrastructure.Persistence.Contexts;
+﻿using InternetBanking.Core.Application.Interfaces.Repositories;
+using InternetBanking.Infrastructure.Persistence.Contexts;
+using InternetBanking.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +17,7 @@ namespace InternetBanking.Infrastructure.Persistence
         public static void AddPersistenceLayer(this IServiceCollection services, IConfiguration configuration)
         {
             #region Database configuration
-            if (configuration.GetValue<bool>("UserInMemoryDataBase"))
+            if (configuration.GetValue<bool>("UseInMemoryDataBase"))
             {
                 services.AddDbContext<ApplicationContext>(options => options.UseInMemoryDatabase("AppData"));
             }
@@ -24,6 +26,13 @@ namespace InternetBanking.Infrastructure.Persistence
                 var connectionString = configuration.GetConnectionString("DefaultConnection");
                 services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString, m=> m.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
             }
+            #endregion
+
+            #region DI
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
             #endregion
         }
     }

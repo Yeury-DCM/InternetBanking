@@ -1,0 +1,69 @@
+﻿@model InternetBanking.Core.Application.ViewModels.TransferVMS.MakeTransferViewModel
+
+@{
+    ViewData["Title"] = "Transferencia";
+    var userAccounts = ViewBag.UserAccounts as List<string> ?? new List<string>();
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">Realizar Transferencia</h3>
+                </div>
+                <div class="card-body">
+                    @if (!Model.IsSucess)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <p>@(Model.ErrorMessage ?? "Ha ocurrido un error al procesar la transferencia")</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+
+                    <form asp-action="MakeTransfer" method="post">
+                        <div class="mb-3">
+                            <label asp-for="FromAccountNumber" class="form-label">Cuenta de Origen</label>
+                            <select asp-for="FromAccountNumber" class="form-select" id="cuentaOrigenSelect">
+                                <option value="">Seleccione una cuenta de origen</option>
+                                @foreach (var cuenta in userAccounts)
+                                {
+                                    <option value="@cuenta">@cuenta</option>
+                                }
+                            </select>
+                            <span asp-validation-for="FromAccountNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ToAccountNumber" class="form-label">Cuenta de Destino</label>
+                            <select asp-for="ToAccountNumber" class="form-select" id="cuentaOrigenSelect">
+                                <option value="">Seleccione una cuenta de destino</option>
+                                @foreach (var cuenta in userAccounts)
+                                {
+                                    <option value="@cuenta">@cuenta</option>
+                                }
+                            </select>
+                            <span asp-validation-for="ToAccountNumber" class="text-danger"></span>
+                        </div>
+
+                       
+
+                        <div class="mb-3">
+                            <label asp-for="Ammount" class="form-label">Monto a Transferir</label>
+                            <div class="input-group">
+                                <span class="input-group-text">RD$</span>
+                                <input asp-for="Ammount" type="number" step="0.01" min="0" class="form-control" placeholder="Ingrese el monto">
+                            </div>
+                            <span asp-validation-for="Ammount" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Realizar Transferencia</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

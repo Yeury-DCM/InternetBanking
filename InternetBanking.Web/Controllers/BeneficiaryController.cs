@@ -1,12 +1,22 @@
+<<<<<<< HEAD
 ﻿using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.Services;
 using InternetBanking.Core.Application.ViewModels.Beneficiary;
+=======
+﻿using InternetBanking.Core.Application.Enums;
+using Microsoft.AspNetCore.Authorization;
+>>>>>>> main
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBanking.Web.Controllers
 {
+<<<<<<< HEAD
     [Route("api/[controller]")]
     [ApiController]
+=======
+    
+    [Authorize(Roles = "Client")]
+>>>>>>> main
     public class BeneficiaryController : Controller
     {
         private readonly BeneficiaryService _beneficiaryService;

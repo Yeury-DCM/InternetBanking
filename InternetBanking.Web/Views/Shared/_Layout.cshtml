@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using InternetBanking.Core.Application.Dtos
+@using InternetBanking.Core.Application.Enums
+@using InternetBanking.Core.Application.Helpers
+@inject IHttpContextAccessor httpContext
+@{
+    AuthenticationResponse user = httpContext.HttpContext!.Session.Get<AuthenticationResponse>("user")!;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -14,71 +22,109 @@
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
 
-               @* Enlace a la vista home *@
-                <a class=" ms-2 navbar-brand" asp-area="" asp-controller="Product" asp-action="Index">Bienvenido [Nombre del cliente]</a>
+            
+                @if(user != null)
+                {
+                    @* Enlace a la vista home *@
+                    <a class=" ms-2 navbar-brand" asp-area="" asp-controller="Product" asp-action="Index">Bienvenido @user.UserName</a>
 
-               @* Boton para dispositivos pequeños *@
+                    @* Boton para dispositivos pequeños *@
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-               @* Menu *@
-                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                    <ul class="navbar-nav">
 
-                        @* Enlace a la vista home *@
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Home</a>
-                        </li>
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                        <ul class="navbar-nav">
 
-                        @* Enlace para las opciones de pagos *@
+                            @* Menu para clientes *@
+                            @if (user.Roles.Any(r => r == Roles.Client.ToString()))
+                            {
+                                @* Enlace a la vista home *@
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="beneficiarioDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Pagos
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="beneficiarioDropdown">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Home</a>
+                                </li>
 
-                                @* Enlace a la vista de pagos expreso *@
+                                @* Enlace para las opciones de pagos *@
 
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="Privacy">Expreso</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-dark" href="#" id="beneficiarioDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Pagos
+                                    </a>
 
-                                @* Validar que el usuario tenga una tarjeta de credito para mostrar esta opcion *@
-                                @* Enlace a la vista de pagos de tarjeta de credito *@
+                                    <ul class="dropdown-menu" aria-labelledby="beneficiarioDropdown">
 
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="OtraAccion">Tarjeta de crédito</a></li>
+                                        @* Enlace a la vista de pagos expreso *@
 
-                                @* Validar que el usuario tenga un prestamo para mostrar esta opcion *@
-                                @* Enlace a la vista de pagos de prestamos *@
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="OtraMas">Préstamo</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Payment" asp-action="Express">Expreso</a></li>
 
-                                @* Enlace a la vista de beneficiarios *@
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="OtraMas">Beneficiarios</a></li>
-                            </ul>
-                        </li>
+                                        @* Validar que el usuario tenga una tarjeta de credito para mostrar esta opcion *@
+                                        @* Enlace a la vista de pagos de tarjeta de credito *@
 
-                        @* Enlace a la vista beneficiarios *@
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="OtraAccion">Tarjeta de crédito</a></li>
 
+<<<<<<< HEAD
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Beneficiary" asp-action="Index">Beneficiarios</a>
                         </li>
+=======
+                                        @* Validar que el usuario tenga un prestamo para mostrar esta opcion *@
+                                        @* Enlace a la vista de pagos de prestamos *@
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="OtraMas">Préstamo</a></li>
+>>>>>>> main
 
-                        @* Enlace a la vista avance de efectivo *@
+                                        @* Enlace a la vista de beneficiarios *@
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="OtraMas">Beneficiarios</a></li>
+                                    </ul>
+                                </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Privacy">Avance de efectivo</a>
-                        </li>
+                                @* Enlace a la vista beneficiarios *@
 
-                        @* Enlace a la vista transferencia *@
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Privacy">Beneficiarios</a>
+                                </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Privacy">Transferencia</a>
-                        </li>
-                    </ul>
-                </div>
+                                @* Enlace a la vista avance de efectivo *@
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Privacy">Avance de efectivo</a>
+                                </li>
+
+                                @* Enlace a la vista transferencia *@
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Transfer" asp-action="Index">Transferencia</a>
+                                </li>
+
+                            }
+
+                            @* Menú de admins *@
+                            @if (user.Roles.Any(r => r == Roles.Admin.ToString()))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="User" asp-action="Index">Administrador De Usuarios</a>
+                                </li>
+                            }
+
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="LogOut">Cerrar sesión</a>
+                            </li>
+                            
+                        </ul>
+
+
+                    </div>
+                }
+            
             </div>
         </nav>
     </header>

@@ -37,6 +37,8 @@ namespace InternetBanking.Core.Application.Mapping
                 .ForMember(dest => dest.Product, opt => opt.Ignore())
                 .ForMember(dest => dest.transactionType, opt => opt.Ignore())
                 .ReverseMap();
+
+         
                 
         
         }

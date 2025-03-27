@@ -1,0 +1,48 @@
+﻿@model InternetBanking.Core.Application.ViewModels.AccountVMS.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-5 col-lg-7 col-md-9">
+                <div class="card p-4 shadow-lg" style="border-radius: 1rem; background-color: #f4f4f4;">
+                    <div class="card-body">
+                        @if (!Model.IsSucess)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p>@Model.ErrorMessage</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+                        <div class="text-center mb-4">
+                            <h1 class="display-5 fw-bold mb-3">Internet Banking</h1>
+                            <h5 class="fw-bold text-secondary">INICIA SESIÓN</h5>
+                        </div>
+                        <form asp-action="LogIn" asp-controller="Account">
+                            <!-- Nombre de usuario -->
+                            <div class="form-group mb-3">
+                                <label asp-for="UserName" class="form-label">Nombre de usuario</label>
+                                <input asp-for="UserName" type="text" class="form-control form-control-lg" style="background-color: #ffffff; color: #333; border: 1px solid #ced4da;">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+                            <!-- Contraseña -->
+                            <div class="form-group mb-3">
+                                <label asp-for="Password" class="form-label">Contraseña</label>
+                                <input asp-for="Password" type="password" class="form-control form-control-lg" style="background-color: #ffffff; color: #333; border: 1px solid #ced4da;">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <!-- Botón de Login -->
+                            <div class="d-grid">
+                                <button class="btn btn-info text-white" type="submit">
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
