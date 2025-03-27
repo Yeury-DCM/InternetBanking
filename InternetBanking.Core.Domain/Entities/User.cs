@@ -11,8 +11,13 @@ namespace InternetBanking.Core.Domain.Entities
         public required int Id { get; set; }
         public required string UserName { get; set; }
         public required string Name { get; set; }
+<<<<<<< HEAD
+        public required string LastName { get; set; }
+        public required string Identification { get; set; }
+=======
         public required string  LastName { get; set; }
         public required string Identification  { get; set; }
+>>>>>>> main
         public required string Mail { get; set; }
         public required string Password { get; set; }
         public required int UserTypeID { get; set; }
