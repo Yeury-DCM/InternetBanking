@@ -1,7 +1,7 @@
  
 ﻿using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.Services;
-using InternetBanking.Core.Application.ViewModels.Beneficiary;
+using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
 
 ﻿using InternetBanking.Core.Application.Enums;
 using Microsoft.AspNetCore.Authorization;
