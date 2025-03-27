@@ -10,5 +10,6 @@ namespace InternetBanking.Core.Application.Interfaces.Services
     public interface IDashboardService
     {
         Task<DashboardViewModel> DashboardInfo();
+        Task<DashboardViewModel> GetUserProductsInfo();
     }
 }

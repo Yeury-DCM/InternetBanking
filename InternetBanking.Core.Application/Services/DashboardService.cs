@@ -33,11 +33,24 @@ namespace InternetBanking.Core.Application.Services
 
             DashboardViewModel dvm = new DashboardViewModel
             {
-                products = products.Count(),
-                transactions = transactions.Count(),
-                payments = paymentsfiltred.Count(),
-                todayTransactions = todaytransaction.Count(),
-                todayPayments = todaypayments.Count(),
+                productsCount = products.Count(),
+                transactionsCount = transactions.Count(),
+                paymentsCount = paymentsfiltred.Count(),
+                todayTransactionsCount = todaytransaction.Count(),
+                todayPaymentsCount = todaypayments.Count(),
+            };
+            return dvm;
+        }
+
+        public async Task<DashboardViewModel> GetUserProductsInfo()
+        {
+            var products = await _productRepository.GetAllWithIncludesAsync(new List<string> { "productType" });
+            var transactions = (await _transactionRepository.GetAllWithIncludesAsync(new List<string> { "transactionType" })).OrderByDescending(t=> t.TransactionDate).ToList();
+
+            DashboardViewModel dvm = new DashboardViewModel
+            {
+                products = products,
+                transactions = transactions
             };
             return dvm;
         }

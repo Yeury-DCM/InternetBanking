@@ -1,5 +1,4 @@
 ﻿using InternetBanking.Core.Application.Services;
-using InternetBanking.Core.Application.ViewModels.Beneficiary;
 using InternetBanking.Core.Application.ViewModels.ProductVMS;
 using InternetBanking.Core.Domain.Entities;
 using System;

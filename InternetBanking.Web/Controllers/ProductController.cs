@@ -1,4 +1,5 @@
 ﻿using InternetBanking.Core.Application.Enums;
+using InternetBanking.Core.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +9,18 @@ namespace InternetBanking.Web.Controllers
     [Authorize(Roles = "Client")]
     public class ProductController : Controller
     {
-        // GET: ProductController
-        public ActionResult Index()
+        private readonly IDashboardService _dashboardService;
+        public ProductController(IDashboardService dashboardService)
         {
-            return View();
+            _dashboardService = dashboardService;
+        }
+
+       
+        // GET: ProductController
+        public async Task<IActionResult> Index()
+        {
+            var vm = await _dashboardService.GetUserProductsInfo();
+            return View(vm);
         }
 
        

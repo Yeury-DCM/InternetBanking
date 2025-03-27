@@ -21,6 +21,13 @@ namespace InternetBanking.Core.Application.Mapping
                 .ForMember(dest => dest.productType, opt => opt.MapFrom(src => src.productType))
                 .ForMember(dest => dest.transactions, opt => opt.MapFrom(src => src.transactions));
 
+            CreateMap<PaymentViewModel, SavePaymentViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.OriginProduct, opt => opt.MapFrom(src => src.OriginProduct.ProductNumber))
+                .ForMember(dest => dest.DestinationProduct, opt => opt.MapFrom(src => src.DestinationProductNumber))
+                .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Amount))
+                .ForMember(dest => dest.PaymentType, opt => opt.MapFrom(src => src.PaymentType));
+
 
             CreateMap<Product, PaymentViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -38,9 +45,9 @@ namespace InternetBanking.Core.Application.Mapping
                 .ForMember(dest => dest.transactionType, opt => opt.Ignore())
                 .ReverseMap();
 
-         
-                
-        
+
+
+
         }
     }
 }

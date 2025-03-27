@@ -55,7 +55,7 @@ namespace InternetBanking.Core.Application.Services
 
             if (loan.Balance == 0)
             {
-                throw new Exception("Este prestamos ya está pagada");
+                throw new InvalidOperationException("Este prestamo ya está pago");
             }
 
             if (vm.Amount > loan.Balance)
@@ -75,7 +75,7 @@ namespace InternetBanking.Core.Application.Services
             {
                 UserID = originproduct.UserID,
                 ProductID = originproduct.Id,
-                TransactionTypeID = 5,
+                TransactionTypeID = 3,
                 Amount = vm.Amount,
                 TransactionDate = DateTime.Now,
             };
