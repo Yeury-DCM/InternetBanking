@@ -10,11 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBanking.Web.Controllers
 {
- 
-    [Route("api/[controller]")]
-    [ApiController]
-
-    
+     
     [Authorize(Roles = "Client")]
 
     public class BeneficiaryController : Controller
