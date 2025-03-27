@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using InternetBanking.Core.Application.ViewModels.AdvanceCashVMS;
+using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
 using InternetBanking.Core.Application.ViewModels.PayementVMS;
 using InternetBanking.Core.Application.ViewModels.ProductVMS;
 using InternetBanking.Core.Application.ViewModels.TransactionVMS;
@@ -46,7 +48,20 @@ namespace InternetBanking.Core.Application.Mapping
                 .ReverseMap();
 
 
+            // Beneficiary to BeneficiaryViewModel
+            CreateMap<Beneficiary, BeneficiaryViewModel>()
+                .ForMember(dest => dest.BeneficiaryFullName, opt => opt.MapFrom(src => $"{src.user.Name} {src.user.LastName}"))
+                .ForMember(dest => dest.AccountNumber, opt => opt.MapFrom(src => src.account.ProductNumber));
 
+            // SaveBeneficiaryViewModel to Beneficiary
+            CreateMap<SaveBeneficiaryViewModel, Beneficiary>();
+
+            // AdvanceCashViewModel mappings
+            CreateMap<Product, AdvanceCashViewModel>()
+                .ForMember(dest => dest.CreditCardId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.SavingsAccountId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Amount, opt => opt.Ignore())
+                .ForMember(dest => dest.InterestRate, opt => opt.Ignore());
 
         }
     }
