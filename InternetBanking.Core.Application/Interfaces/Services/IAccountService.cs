@@ -11,7 +11,7 @@ namespace InternetBanking.Core.Application.Interfaces.Services
     public interface IAccountService
     {
         Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request);
-        Task<CreateUserResponse> CreateUser(CreateUserRequest request);
+        Task<SaveUserResponse> CreateUser(SaveUserRequest request);
         Task SignOutAsync();
 
         Task<List<UserViewModel>> GetAllUserViewModelsAsync();

@@ -9,9 +9,10 @@
 <div class="container-fluid px-4">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Gestión de Usuarios</h1>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
-            <i class="fas fa-plus me-2"></i>Crear Nuevo Usuario
-        </button>
+
+        <a type="button" asp-controller ="User" asp-action = "Add" class="btn btn-info">
+            Crear Nuevo Usuario
+        </a>
     </div>
 
     <div class="card shadow mb-4">
@@ -39,7 +40,7 @@
                                 <td>@user.FirstName @user.LastName</td>
                                 <td>@user.UserName</td>
                                 <td>@user.Email</td>
-                                <td>@user.IdentificationNumer</td>
+                                <td>@user.IdentificationNumber</td>
                                 <td>
                                     @foreach (var role in user.Roles)
                                     {
@@ -68,6 +69,8 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
 
     <!-- Modal para Crear Usuario -->
     <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
@@ -140,6 +143,7 @@
             </div>
         </div>
     </div>
+>>>>>>> 4f46ddcfaedc3bb193c90c6ef110efa4aa293d75
 </div>
 
 @section Scripts {

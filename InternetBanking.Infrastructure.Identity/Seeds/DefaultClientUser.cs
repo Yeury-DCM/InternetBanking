@@ -14,7 +14,7 @@ namespace InternetBanking.Infrastructure.Identity.Seeds
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "client@email.com",
-                IdentificationNumer = "002-0034009-3",
+                IdentificationNumber = "002-0034009-3",
                 UserName = "clientUser",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,

@@ -1,4 +1,5 @@
 ﻿
+using Azure;
 using InternetBanking.Core.Application.Dtos;
 using InternetBanking.Core.Application.Enums;
 using InternetBanking.Core.Application.Interfaces.Services;
@@ -61,10 +62,10 @@ namespace InternetBanking.Infrastructure.Identity.Services
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<CreateUserResponse> CreateUser(CreateUserRequest request)
+        public async Task<SaveUserResponse> CreateUser(SaveUserRequest request)
         {
-            CreateUserResponse response = new() { IsSucess = true };
-
+           
+            SaveUserResponse response = new() { IsSucess = true };
 
             var userWithSameUserName = await _userManager.FindByNameAsync(request.UserName);
 
@@ -90,13 +91,14 @@ namespace InternetBanking.Infrastructure.Identity.Services
                 UserName = request.UserName.Trim(),
                 FirstName = request.FirstName.Trim(),
                 LastName = request.LastName.Trim(),
-                PhoneNumber = request.PhoneNumber.Trim()
+                IdentificationNumber = request.IdentificationNumber
 
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
 
-
+            await _userManager.AddToRoleAsync(user, request.Role.ToString());
+                
             if (result.Succeeded)
             {
                 response.UserId = user.Id;
@@ -120,7 +122,7 @@ namespace InternetBanking.Infrastructure.Identity.Services
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                IdentificationNumer = user.IdentificationNumer,
+                IdentificationNumber = user.IdentificationNumber,
                 UserName = user.UserName!,
                 Email = user.Email,
                 Roles = (List<string>) await _userManager.GetRolesAsync(user),
@@ -139,7 +141,7 @@ namespace InternetBanking.Infrastructure.Identity.Services
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                IdentificationNumer = user.IdentificationNumer,
+                IdentificationNumber = user.IdentificationNumber,
                 UserName = user.UserName!,
                 Email = user.Email,
                 Roles = (List<string>)await _userManager.GetRolesAsync(user),

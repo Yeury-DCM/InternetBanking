@@ -16,8 +16,6 @@ namespace InternetBanking.Core.Domain.Entities
         public required DateTime TransactionDate { get; set; }
 
         //Navegation Properties
-
-        public User User { get; set; }
         public Product Product { get; set; }   
         public TransactionType transactionType { get; set; }
     }
