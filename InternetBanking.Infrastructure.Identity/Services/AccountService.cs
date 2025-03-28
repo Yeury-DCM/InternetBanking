@@ -7,6 +7,7 @@ using InternetBanking.Core.Application.ViewModels.UserVMS;
 using InternetBanking.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace InternetBanking.Infrastructure.Identity.Services
 {
@@ -183,6 +184,25 @@ namespace InternetBanking.Infrastructure.Identity.Services
             await _userManager.UpdateAsync(user);
         }
 
+        public async Task UpdateUserAsync(SaveUserViewModel saveUserViewModel)
+        {
+
+            var user = await _userManager.FindByIdAsync(saveUserViewModel.Id);
+
+            user.FirstName = saveUserViewModel.FirstName;
+            user.LastName = saveUserViewModel.LastName;
+            user.IdentificationNumber = saveUserViewModel.IdentificationNumber;
+            user.Email = saveUserViewModel.Email;
+            user.UserName = saveUserViewModel.UserName.Trim();
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if(!string.IsNullOrEmpty(saveUserViewModel.Password))
+            {
+                await _userManager.RemovePasswordAsync(user);
+                await _userManager.AddPasswordAsync(user, saveUserViewModel.Password);
+            }
+        }
 
     }
 }

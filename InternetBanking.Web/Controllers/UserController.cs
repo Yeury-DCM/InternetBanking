@@ -22,7 +22,7 @@ namespace InternetBanking.Web.Controllers
         {
             _accountService = accountService;
             _mapper = mapper;
-            _productService = productService;   
+            _productService = productService;
         }
         public async Task<IActionResult> Index()
         {
@@ -30,11 +30,11 @@ namespace InternetBanking.Web.Controllers
             return View(await _accountService.GetAllUserViewModelsAsync());
         }
 
-   
+
         public IActionResult Add()
         {
             ViewBag.UserTypes = Enum.GetValues<Roles>();
-          
+
             return View("SaveUser", new SaveUserViewModel());
         }
 
@@ -43,7 +43,7 @@ namespace InternetBanking.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(SaveUserViewModel saveUserViewModel)
         {
-            ModelState.Remove("UserId");
+            ModelState.Remove("Id");
             if (!ModelState.IsValid)
             {
                 ViewBag.UserTypes = Enum.GetValues<Roles>();
@@ -58,14 +58,16 @@ namespace InternetBanking.Web.Controllers
             {
                 saveUserViewModel.ErrorMessage = response.ErrorMessage;
                 saveUserViewModel.IsSucess = false;
-                return View(saveUserViewModel);
+                ViewBag.UserTypes = Enum.GetValues<Roles>();
+
+                return View("SaveUser", saveUserViewModel);
             }
 
-            if(saveUserViewModel.UserType == Roles.Client)
+            if (saveUserViewModel.UserType == Roles.Client)
             {
                 SaveProductViewModel saveProductViewModel = new()
                 {
-                    Balance = saveUserViewModel.InitialAmount,
+                    Balance = saveUserViewModel.Amount,
                     UserID = response.UserId,
                     IsPrincipal = true,
                     ProductTypeID = 1,
@@ -78,7 +80,7 @@ namespace InternetBanking.Web.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> Activate (string userId)
+        public async Task<IActionResult> Activate(string userId)
         {
             await _accountService.ActivateUser(userId);
 
@@ -92,6 +94,45 @@ namespace InternetBanking.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Edit(string userId)
+        {
+            ViewBag.UserTypes = Enum.GetValues<Roles>();
+
+            UserViewModel user = await _accountService.GetUserViewModelByIdAsync(userId);
+
+            SaveUserViewModel saveUserViewModel = _mapper.Map<SaveUserViewModel>(user);
+
+            return View("SaveUser", saveUserViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(SaveUserViewModel saveUserViewModel)
+        {
+            if (string.IsNullOrEmpty(saveUserViewModel.Password) && string.IsNullOrEmpty(saveUserViewModel.ConfirmPassword))
+            {
+                ModelState.Remove("Password");
+                ModelState.Remove("ConfirmPassword");
+            }
+
+        
+            if (!ModelState.IsValid)
+            {
+                ViewBag.UserTypes = Enum.GetValues<Roles>();
+                return View("SaveUser", saveUserViewModel);
+            }
+
+            await _accountService.UpdateUserAsync(saveUserViewModel);
+
+            if (saveUserViewModel.Amount > 0)
+            {
+                var principalAccount = await _productService.GetPrincipalAccountByUserId(saveUserViewModel.Id);
+                await _productService.AddAmount(principalAccount.Id, saveUserViewModel.Amount);
+            }
+
+            return RedirectToAction("Index");
+        }
+
 
     }
 }

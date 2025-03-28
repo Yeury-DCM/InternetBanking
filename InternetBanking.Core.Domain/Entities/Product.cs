@@ -13,7 +13,7 @@ namespace InternetBanking.Core.Domain.Entities
         public required int ProductTypeID { get; set; }
         public decimal Balance { get; set; }
         public  decimal? Limit { get; set; }
-        public  bool? IsPrincipal { get; set; }
+        public  bool IsPrincipal { get; set; }
         public required string UserID { get; set; }
 
         //Navegation Properties

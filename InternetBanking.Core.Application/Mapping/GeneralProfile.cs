@@ -50,9 +50,11 @@ namespace InternetBanking.Core.Application.Mapping
                 .ReverseMap();
 
             CreateMap<SaveUserViewModel, SaveUserResponse>()
+     
                 .ReverseMap();
 
             CreateMap<SaveUserViewModel, SaveUserRequest>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.UserType))
                .ReverseMap();
 
             // Beneficiary to BeneficiaryViewModel
@@ -61,6 +63,12 @@ namespace InternetBanking.Core.Application.Mapping
 
             // SaveBeneficiaryViewModel to Beneficiary
             CreateMap<SaveBeneficiaryViewModel, Beneficiary>();
+
+            // SaveBeneficiaryViewModel to Beneficiary
+            CreateMap<SaveUserViewModel, UserViewModel>()
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => new List<string>() { src.UserType.ToString() }))
+                .ReverseMap()
+                .ForMember(dest => dest.UserType, opt => opt.MapFrom(src => src.Roles[0]));
 
             // AdvanceCashViewModel mappings
             CreateMap<Product, AdvanceCashViewModel>()

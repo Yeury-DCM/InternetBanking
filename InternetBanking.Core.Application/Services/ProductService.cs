@@ -37,5 +37,28 @@ namespace InternetBanking.Core.Application.Services
             return _mapper.Map<List<ProductViewModel>>(productsByUserLoggedIn);
         }
 
+        public async Task AddAmount(int productId, decimal amount)
+        {
+            Product product = await _productRepository.GetByIdAsync(productId);
+            product.Balance += amount;
+
+            await _productRepository.UpdateAsync(product, productId);
+        }
+
+        public async Task<ProductViewModel> GetPrincipalAccountByUserId(string userId)
+        {
+            var products = await _productRepository.GetAllAsync();
+            Product? principalAccount = products.Where(p => p.UserID == userId)
+                                       .FirstOrDefault(p => p.IsPrincipal);
+
+            ProductViewModel principalAccoutViewModel = _mapper.Map<ProductViewModel>(principalAccount);
+
+            return principalAccoutViewModel;
+
+
+
+
+        }
+
     }
 }
