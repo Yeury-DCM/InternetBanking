@@ -38,44 +38,6 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TipoUsuarios",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TipoUsuarios", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Usuarios",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Identification = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
-                    Mail = table.Column<string>(type: "nvarchar(320)", maxLength: 320, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    UserTypeID = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Usuarios", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Usuarios_TipoUsuarios_UserTypeID",
-                        column: x => x.UserTypeID,
-                        principalTable: "TipoUsuarios",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Productos",
                 columns: table => new
                 {
@@ -86,7 +48,7 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                     Balance = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false, defaultValue: 0.00m),
                     Limit = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
                     IsPrincipal = table.Column<bool>(type: "bit", nullable: true, defaultValue: false),
-                    UserID = table.Column<int>(type: "int", nullable: false)
+                    UserID = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,20 +58,14 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                         column: x => x.ProductTypeID,
                         principalTable: "TipoProductos",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Productos_Usuarios_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Beneficiarios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -120,11 +76,6 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                         column: x => x.ProductID,
                         principalTable: "Productos",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Beneficiarios_Usuarios_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -133,7 +84,7 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    UserID = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductID = table.Column<int>(type: "int", nullable: false),
                     TransactionTypeID = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
@@ -152,11 +103,6 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                         column: x => x.TransactionTypeID,
                         principalTable: "TipoTransacciones",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Transacciones_Usuarios_UserID",
-                        column: x => x.UserID,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -165,19 +111,9 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Beneficiarios_UserID",
-                table: "Beneficiarios",
-                column: "UserID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Productos_ProductTypeID",
                 table: "Productos",
                 column: "ProductTypeID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Productos_UserID",
-                table: "Productos",
-                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transacciones_ProductID",
@@ -188,16 +124,6 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                 name: "IX_Transacciones_TransactionTypeID",
                 table: "Transacciones",
                 column: "TransactionTypeID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transacciones_UserID",
-                table: "Transacciones",
-                column: "UserID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_UserTypeID",
-                table: "Usuarios",
-                column: "UserTypeID");
         }
 
         /// <inheritdoc />
@@ -217,12 +143,6 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "TipoProductos");
-
-            migrationBuilder.DropTable(
-                name: "Usuarios");
-
-            migrationBuilder.DropTable(
-                name: "TipoUsuarios");
         }
     }
 }

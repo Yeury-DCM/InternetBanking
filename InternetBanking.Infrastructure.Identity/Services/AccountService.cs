@@ -118,17 +118,23 @@ namespace InternetBanking.Infrastructure.Identity.Services
         {
             var users = await _userManager.Users.ToListAsync(); // Obtiene los usuarios primero
 
-            var userViewModels = await Task.WhenAll(users.Select(async user => new UserViewModel
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                IdentificationNumber = user.IdentificationNumber,
-                UserName = user.UserName!,
-                Email = user.Email,
-                Roles = (List<string>) await _userManager.GetRolesAsync(user),
-                IsActive = user.IsActive
+            var userViewModels = new List<UserViewModel>();
 
-            }));
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+
+                userViewModels.Add(new UserViewModel
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    IdentificationNumber = user.IdentificationNumber,
+                    UserName = user.UserName!,
+                    Email = user.Email,
+                    Roles = roles.ToList(),
+                    IsActive = user.IsActive
+                });
+            }
 
             return userViewModels.ToList();
         }

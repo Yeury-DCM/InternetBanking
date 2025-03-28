@@ -57,7 +57,6 @@ namespace InternetBanking.Core.Application.Mapping
 
             // Beneficiary to BeneficiaryViewModel
             CreateMap<Beneficiary, BeneficiaryViewModel>()
-                .ForMember(dest => dest.BeneficiaryFullName, opt => opt.MapFrom(src => $"{src.user.Name} {src.user.LastName}"))
                 .ForMember(dest => dest.AccountNumber, opt => opt.MapFrom(src => src.account.ProductNumber));
 
             // SaveBeneficiaryViewModel to Beneficiary

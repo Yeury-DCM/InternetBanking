@@ -2,6 +2,7 @@
 using InternetBanking.Core.Application.Interfaces.Repositories;
 using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
+using InternetBanking.Core.Application.ViewModels.UserVMS;
 using InternetBanking.Core.Domain.Entities;
 
 public class BeneficiaryService
@@ -21,15 +22,17 @@ public class BeneficiaryService
 
     public async Task AddBeneficiary(SaveBeneficiaryViewModel vm)
     {
+
         var products = await _productRepository.GetAllWithIncludesAsync(new List<string> { "ProductType", "User" });
         var product = products.FirstOrDefault(p => p.ProductNumber == vm.AccountNumber);
+        UserViewModel user = await _accountService.GetUserViewModelByIdAsync(product!.UserID);
 
         if (product == null)
         {
             throw new Exception("El número de cuenta proporcionado no existe.");
         }
 
-        if (product.User == null || !product.User.Status)
+        if (user == null || user.IsActive)
         {
             throw new Exception("Usuario relacionado con el número de cuenta está inactivo.");
         }
@@ -40,12 +43,14 @@ public class BeneficiaryService
         await _beneficiaryRepository.AddAsync(beneficiary);
     }
 
-    public async Task<List<BeneficiaryViewModel>> GetAllBeneficiaries(int userId)
+    public async Task<List<BeneficiaryViewModel>> GetAllBeneficiaries(string userId)
     {
+
         var beneficiaries = await _beneficiaryRepository.GetAllWithIncludesAsync(new List<string> { "Product", "Product.User" });
         var userBeneficiaries = beneficiaries.Where(b => b.UserID == userId).ToList();
 
         return _mapper.Map<List<BeneficiaryViewModel>>(userBeneficiaries);
+
     }
 
     public async Task DeleteBeneficiary(int beneficiaryId)

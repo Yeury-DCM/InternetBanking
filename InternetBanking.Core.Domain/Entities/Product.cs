@@ -8,7 +8,7 @@ namespace InternetBanking.Core.Domain.Entities
 {
     public class Product
     {
-        public required int Id { get; set; }
+        public int Id { get; set; }
         public required string ProductNumber { get; set; }
         public required int ProductTypeID { get; set; }
         public decimal Balance { get; set; }

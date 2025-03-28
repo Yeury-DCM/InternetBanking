@@ -16,7 +16,6 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
         public DbSet<Product> products { get; set; }
         public DbSet<Beneficiary> beneficiaries { get; set; }
         public DbSet<Transaction> transactions { get; set; }
-        public DbSet<UserType> userTypes    { get; set; }
         public DbSet<ProductType> productTypes { get; set; }
         public DbSet<TransactionType> transactionTypes  { get; set; }
 
@@ -27,7 +26,6 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
             modelBuilder.Entity<Product>().ToTable("Productos");
             modelBuilder.Entity<Beneficiary>().ToTable("Beneficiarios");
             modelBuilder.Entity<Transaction>().ToTable("Transacciones");
-            modelBuilder.Entity<UserType>().ToTable("TipoUsuarios");
             modelBuilder.Entity<ProductType>().ToTable("TipoProductos");
             modelBuilder.Entity<TransactionType>().ToTable("TipoTransacciones");
             #endregion

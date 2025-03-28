@@ -18,8 +18,6 @@ namespace InternetBanking.Core.Application.ViewModels.TransactionVMS
         public required DateTime TransactionDate { get; set; }
 
         //Navegation Properties
-
-        public User User { get; set; }
         public Product Product { get; set; }
         public TransactionType transactionType { get; set; }
     }

@@ -21,7 +21,6 @@ namespace InternetBanking.Core.Application.ViewModels.PayementVMS
         public PaymentType PaymentType { get; set; }
 
         //Navegation Properties
-        public User User { get; set; }
         public ProductType productType { get; set; }
     }
 }

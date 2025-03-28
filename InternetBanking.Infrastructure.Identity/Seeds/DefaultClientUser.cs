@@ -1,5 +1,6 @@
 ﻿
 using InternetBanking.Core.Application.Enums;
+using InternetBanking.Core.Domain.Entities;
 using InternetBanking.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 
@@ -21,7 +22,9 @@ namespace InternetBanking.Infrastructure.Identity.Seeds
                 IsActive = true,
             };
 
-            if(userManager.Users.All(u => u.Id != defaultUser.Id))
+           
+
+            if (userManager.Users.All(u => u.Id != defaultUser.Id))
             {
 
                 var user = await userManager.FindByEmailAsync(defaultUser.Email);
@@ -34,7 +37,6 @@ namespace InternetBanking.Infrastructure.Identity.Seeds
 
             }
 
-            
         }
     }
 }

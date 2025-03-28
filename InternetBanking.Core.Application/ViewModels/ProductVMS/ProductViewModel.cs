@@ -18,7 +18,6 @@ namespace InternetBanking.Core.Application.ViewModels.ProductVMS
         public required string UserID { get; set; }
 
         //Navegation Properties
-        public User User { get; set; }
         public ProductType productType { get; set; }
         public ICollection<Transaction> transactions { get; set; } = new List<Transaction>();
     }

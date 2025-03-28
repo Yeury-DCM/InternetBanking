@@ -24,7 +24,7 @@ namespace InternetBanking.Web.Controllers
         }
 
         [HttpGet("GetAll/{userId}")]
-        public async Task<IActionResult> GetAll(int userId)
+        public async Task<IActionResult> GetAll(string userId)
         {
             try
             {

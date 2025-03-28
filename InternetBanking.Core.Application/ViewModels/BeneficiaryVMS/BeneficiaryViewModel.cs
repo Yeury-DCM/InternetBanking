@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternetBanking.Core.Application.ViewModels.UserVMS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,7 @@ namespace InternetBanking.Core.Application.ViewModels.BeneficiaryVMS
         public string ProductType { get; set; }  // Tipo de producto (ejemplo: "Cuenta Ahorros", "Cuenta Corriente")
 
         public string AccountNumber { get; set; }  // Número de cuenta del beneficiario
+
+        public UserViewModel User { get; set; }
     }
 }
