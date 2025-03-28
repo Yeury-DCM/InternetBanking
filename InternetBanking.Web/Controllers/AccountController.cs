@@ -24,7 +24,7 @@ namespace InternetBanking.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> LogIn()
         {
-
+            
             bool isAuthenticated = User.Identity!.IsAuthenticated;
             bool isAdmin = User.IsInRole("Admin");
             var userSession = _httpContextAccessor.HttpContext!.Session.Get<AuthenticationResponse>("user");

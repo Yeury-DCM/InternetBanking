@@ -12,7 +12,7 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
-        public DbSet<User> users { get; set; }
+      
         public DbSet<Product> products { get; set; }
         public DbSet<Beneficiary> beneficiaries { get; set; }
         public DbSet<Transaction> transactions { get; set; }
@@ -23,7 +23,7 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region tables
-            modelBuilder.Entity<User>().ToTable("Usuarios");
+            
             modelBuilder.Entity<Product>().ToTable("Productos");
             modelBuilder.Entity<Beneficiary>().ToTable("Beneficiarios");
             modelBuilder.Entity<Transaction>().ToTable("Transacciones");
@@ -32,43 +32,16 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
             modelBuilder.Entity<TransactionType>().ToTable("TipoTransacciones");
             #endregion
 
-            #region primary keys
-            modelBuilder.Entity<User>().HasKey(u => u.Id);
+            #region Keys
             modelBuilder.Entity<Product>().HasKey(p => p.Id);
             modelBuilder.Entity<Beneficiary>().HasKey(b => b.Id);
             modelBuilder.Entity<Transaction>().HasKey(t => t.Id);
-            modelBuilder.Entity<UserType>().HasKey(ut => ut.Id);
             modelBuilder.Entity<ProductType>().HasKey(pt => pt.Id);
             modelBuilder.Entity<TransactionType>().HasKey(tt => tt.Id);
             #endregion
 
             #region relationships
-            #region users
-            modelBuilder.Entity<User>()
-               .HasMany<Product>(u => u.products)
-               .WithOne(p => p.User)
-               .HasForeignKey(p => p.UserID)
-               .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<User>()
-                .HasMany<Transaction>(u => u.transactions)
-                .WithOne(t => t.User)
-                .HasForeignKey(t => t.UserID)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<User>()
-               .HasMany<Beneficiary>(u => u.beneficiaries)
-               .WithOne(b => b.user)
-               .HasForeignKey(b => b.UserID)
-               .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<User>()
-                .HasOne<UserType>(u => u.userType)
-                .WithMany(ut => ut.users)
-                .HasForeignKey(u => u.UserTypeID)
-                .OnDelete(DeleteBehavior.NoAction);
-            #endregion
-
+        
             #region products
 
             modelBuilder.Entity<Product>()
@@ -83,21 +56,10 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
                .HasForeignKey(p => p.ProductTypeID)
                .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Product>()
-               .HasOne<User>(p => p.User)
-               .WithMany(u => u.products)
-               .HasForeignKey(p => p.UserID)
-               .OnDelete(DeleteBehavior.NoAction);
-
 
             #endregion
 
             #region Beneficiaries
-            modelBuilder.Entity<Beneficiary>()
-            .HasOne<User>(b => b.user)
-            .WithMany(u => u.beneficiaries)
-            .HasForeignKey(b => b.UserID)
-            .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Beneficiary>()
            .HasOne<Product>(b => b.account)
@@ -107,12 +69,6 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
             #endregion
 
             #region transactions
-
-            modelBuilder.Entity<Transaction>()
-                .HasOne<User>(t => t.User)
-                .WithMany(u => u.transactions)
-                .HasForeignKey(t => t.UserID)
-                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Transaction>()
               .HasOne<Product>(t => t.Product)
@@ -128,13 +84,6 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
 
             #endregion
 
-            #region usertypes
-            modelBuilder.Entity<UserType>()
-                .HasMany<User>(ut => ut.users)
-                .WithOne(u => u.userType)
-                .HasForeignKey(u => u.UserTypeID)
-                .OnDelete(DeleteBehavior.NoAction);
-            #endregion
 
             #region transactiontypes
             modelBuilder.Entity<TransactionType>()
@@ -155,15 +104,6 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
 
             #region properties configurations
 
-            #region user
-            modelBuilder.Entity<User>().Property(u => u.Name).HasMaxLength(30);
-            modelBuilder.Entity<User>().Property(u => u.LastName).HasMaxLength(50);
-            modelBuilder.Entity<User>().Property(u => u.Mail).HasMaxLength(320);
-            modelBuilder.Entity<User>().Property(u => u.UserName).HasMaxLength(50);
-            modelBuilder.Entity<User>().Property(u => u.Password).HasMaxLength(255);
-            modelBuilder.Entity<User>().Property(u => u.Status).HasDefaultValue(false);
-            modelBuilder.Entity<User>().Property(u => u.Identification).HasMaxLength(11);
-            #endregion
 
             #region products
             modelBuilder.Entity<Product>().Property(p => p.ProductNumber).HasMaxLength(9);

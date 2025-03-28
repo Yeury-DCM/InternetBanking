@@ -9,6 +9,6 @@ namespace InternetBanking.Core.Domain.Entities
 {
     public class UserType: BaseBasicTypeEntity
     {
-        public ICollection<User> users { get; set; } = new List<User>();
+     
     }
 }

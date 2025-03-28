@@ -10,7 +10,6 @@
     <Folder Include="Interfaces\Repositories\" />
     <Folder Include="Mapping\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Dtos\" />
   </ItemGroup>
 
   <ItemGroup>
