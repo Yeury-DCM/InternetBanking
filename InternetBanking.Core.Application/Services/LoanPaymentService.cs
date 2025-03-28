@@ -63,6 +63,8 @@ namespace InternetBanking.Core.Application.Services
                 var rest = vm.Amount - loan.Balance;
                 originproduct.Balance -= vm.Amount;
                 originproduct.Balance += rest;
+
+                vm.Amount = loan.Balance;
                 loan.Balance = 0;
             }
             else

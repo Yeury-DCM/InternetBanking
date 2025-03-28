@@ -11,17 +11,16 @@ using System.Threading.Tasks;
 
 namespace InternetBanking.Core.Application.Services
 {
-     public class TransactionService: GenericService<SaveTransactionViewModel, TransactionViewModel, Transaction>,  ITransactionService
+    public class TransactionService: GenericService<SaveTransactionViewModel, TransactionViewModel,Transaction>, ITransactionService
     {
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly ITransactionRepository _TransactionRepository;
         private readonly IMapper _mapper;
 
-        public TransactionService( ITransactionRepository transactionRepository , IMapper mapper) :base (transactionRepository, mapper)
+        public TransactionService(ITransactionRepository transactionRepository, IMapper mapper):base(transactionRepository, mapper)
         {
-            _transactionRepository = transactionRepository;
             _mapper = mapper;
+            _TransactionRepository = transactionRepository;
         }
 
-      
     }
 }
