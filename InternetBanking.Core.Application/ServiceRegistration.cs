@@ -17,8 +17,9 @@ namespace InternetBanking.Core.Application
             services.AddScoped<IExpressService, ExpressPaymentService>();
             services.AddScoped<ILoanService, LoanPaymentService>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<IDashboardService, DashboardService>();
+            services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<PaymentServiceFactory>();
 
 

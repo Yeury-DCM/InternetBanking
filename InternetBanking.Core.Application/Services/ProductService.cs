@@ -39,7 +39,7 @@ namespace InternetBanking.Core.Application.Services
             var products = await _productRepository.GetAllWithIncludesAsync(new List<string> { "productType", "transactions" });
             var productsByUserLoggedIn = products.Where(p => p.UserID == _authenticationResponse.Id);
 
-            return _mapper.Map<List<ProductViewModel>>(products);
+            return _mapper.Map<List<ProductViewModel>>(productsByUserLoggedIn);
         }
 
     }

@@ -19,55 +19,70 @@
                     <form asp-controller="Payment" asp-action="ProcessPayment" method="post">
                         <input type="hidden" asp-for="PaymentType" />
 
-
-                        <div class="mb-3">
-                            <label asp-for="OriginProduct" class="form-label fw-semibold">Origen:</label>
-                            <select asp-for="OriginProduct" class="form-select">
-                                <option value="0">Seleccione una cuenta</option>
-                                @foreach (var product in Model.products)
-                                {
-                                    if (product.ProductTypeID == 1)
+                        @if (Model.products.Any(predicate => predicate.ProductTypeID == 2))
+                        {
+                            <div class="mb-3">
+                                <label asp-for="OriginProduct" class="form-label fw-semibold">Origen:</label>
+                                <select asp-for="OriginProduct" class="form-select">
+                                    <option value="0">Seleccione una cuenta</option>
+                                    @foreach (var product in Model.products)
                                     {
-                                        <option value="@product.ProductNumber">
-                                            @($"{product.productType.Type} - {product.Balance:C}")
-                                        </option>
+                                        if (product.ProductTypeID == 1)
+                                        {
+                                            <option value="@product.ProductNumber">
+                                                @($"{product.productType.Type}  **{product.ProductNumber[^4..]} - {product.Balance:C}")
+                                            </option>
+                                        }
                                     }
-                                }
-                            </select>
-                            <span asp-validation-for="OriginProduct" class="invalid-feedback"></span>
-                        </div>
+                                </select>
+                                <span asp-validation-for="OriginProduct" class="invalid-feedback"></span>
+                            </div>
 
 
-                        <div class="mb-3">
-                            <label asp-for="DestinationProduct" class="form-label fw-semibold">Origen:</label>
-                            <select asp-for="DestinationProduct" class="form-select">
-                                <option value="0">Seleccione una cuenta</option>
-                                @foreach (var product in Model.products)
-                                {
-                                    if (product.ProductTypeID == 3)
+                            <div class="mb-3">
+                                <label asp-for="DestinationProduct" class="form-label fw-semibold">Origen:</label>
+                                <select asp-for="DestinationProduct" class="form-select">
+                                    <option value="0">Seleccione una cuenta</option>
+                                    @foreach (var product in Model.products)
                                     {
-                                        <option value="@product.ProductNumber">
-                                            @($"{product.productType.Type} - {product.Balance:C}")
-                                        </option>
+                                        if (product.ProductTypeID == 3)
+                                        {
+                                            <option value="@product.ProductNumber">
+                                                @($"{product.productType.Type}  **{product.ProductNumber[^4..]} - {product.Balance:C}")
+                                            </option>
+                                        }
                                     }
-                                }
-                            </select>
-                            <span asp-validation-for="DestinationProduct" class="invalid-feedback"></span>
-                        </div>
+                                </select>
+                                <span asp-validation-for="DestinationProduct" class="invalid-feedback"></span>
+                            </div>
 
 
 
-                        <div class="mb-3">
-                            <label asp-for="Amount" class="form-label fw-semibold">Monto:</label>
-                            <input asp-for="Amount" class="form-control  placeholder="0.00">
-                            <span asp-validation-for="Amount" class="invalid-feedback"></span>
-                        </div>
+                            <div class="mb-3">
+                                <label asp-for="Amount" class="form-label fw-semibold">Monto:</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">RD$</span>
+                                    <input asp-for="Amount" class="form-control placeholder="0.00">                             
+                                </div>
+                                
+                                <span asp-validation-for="Amount" class="invalid-feedback"></span>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <h2 class=" m-3 text-danger bg-danger-subtle p-2 rounded text-center">No tienes préstamos</h2>
+                        }
 
 
                         <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-dark btn-lg">
-                                <i class="bi bi-check-circle"></i> Confirmar
-                            </button>
+                            @if (Model.products.Any(predicate => predicate.ProductTypeID == 2))
+                            {
+                                <button type="submit" class="btn btn-dark btn-lg">
+                                    <i class="bi bi-check-circle"></i> Confirmar
+                                </button>
+                            }
+                           
                             <a asp-controller="Product" asp-action="Index" class="btn btn-warning btn-lg">
                                 <i class="bi bi-arrow-left-circle"></i> Volver
                             </a>

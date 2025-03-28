@@ -3,23 +3,23 @@
 @model SavePaymentViewModel;
 
 @{
-    ViewData["Title"] = "Payment-Express";
-    Model.PaymentType = PaymentType.Express;
-    // var errorMessage = TempData["ErrorMessage"] as string;
+    ViewData["Title"] = "Transferencia";
+    Model.PaymentType = PaymentType.Transfer;
+
 }
 <div class="container-lg">
     <div class="row justify-content-center mt-5">
         <div class="col-md-6">
             <div class="card shadow-lg border-0 rounded-4">
                 <div class="card-header bg-primary text-white text-center rounded-top">
-                    <h4 class=" m-2 fw-bold"><i class="bi bi-cash-stack me-2"></i> Realizar Pago Express</h4>
+                    <h4 class=" m-2 fw-bold"><i class="bi bi-cash-stack me-2"></i> Transferencia</h4>
                 </div>
                 <div class="card-body p-4">
                     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                     <form asp-controller="Payment" asp-action="ProcessPayment" method="post">
                         <input type="hidden" asp-for="PaymentType" />
 
-                       
+
                         <div class="mb-3">
                             <label asp-for="OriginProduct" class="form-label fw-semibold">Origen:</label>
                             <select asp-for="OriginProduct" class="form-select ">
@@ -29,7 +29,7 @@
                                     if (product.ProductTypeID == 1)
                                     {
                                         <option value="@product.ProductNumber">
-                                            @($"{product.productType.Type}  **{product.ProductNumber[^4..]}- {product.Balance:C}")
+                                            @($"{product.productType.Type}  **{product.ProductNumber[^4..]} - {product.Balance:C}")
                                         </option>
                                     }
                                 }
@@ -37,10 +37,21 @@
                             <span asp-validation-for="OriginProduct" class="invalid-feedback"></span>
                         </div>
 
-                       
+
                         <div class="mb-3">
                             <label asp-for="DestinationProduct" class="form-label fw-semibold">Destino:</label>
-                            <input asp-for="DestinationProduct" class="form-control" placeholder="Número de cuenta destino">
+                            <select asp-for="DestinationProduct" class="form-select">
+                                <option value="0">Seleccione una cuenta</option>
+                                @foreach (var product in Model.products)
+                                {
+                                    if (product.ProductTypeID == 1 && product.ProductNumber != Model.OriginProduct)
+                                    {
+                                        <option value="@product.ProductNumber">
+                                            @($"{product.productType.Type}  **{product.ProductNumber[^4..]} - {product.Balance:C}")
+                                        </option>
+                                    }
+                                }
+                            </select>
                             <span asp-validation-for="DestinationProduct" class="invalid-feedback"></span>
                         </div>
 
@@ -50,11 +61,11 @@
                             <div class="input-group">
                                 <span class="input-group-text">RD$</span>
                                 <input asp-for="Amount" class="form-control placeholder="0.00">
-                            </div>                            
+                            </div>
                             <span asp-validation-for="Amount" class="invalid-feedback"></span>
                         </div>
 
-                       
+
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary btn-lg">
                                 <i class="bi bi-check-circle"></i> Confirmar
@@ -69,33 +80,3 @@
         </div>
     </div>
 </div>
-
-
-@* <!-- Modal de Error --> *@
-@* <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true"> *@
-@*     <div class="modal-dialog"> *@
-@*         <div class="modal-content"> *@
-@*             <div class="modal-header bg-danger text-white"> *@
-@*                 <h5 class="modal-title" id="errorModalLabel">Error</h5> *@
-@*                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button> *@
-@*             </div> *@
-@*             <div class="modal-body"> *@
-@*                 <p>@errorMessage</p> *@
-@*             </div> *@
-@*             <div class="modal-footer"> *@
-@*                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> *@
-@*             </div> *@
-@*         </div> *@
-@*     </div> *@
-@* </div> *@
-
-@* <!-- Script para mostrar el modal si hay error --> *@
-@* <script> *@
-@*     document.addEventListener("DOMContentLoaded", function () { *@
-@*         var errorMessage = "@(errorMessage ?? "")"; *@
-@*         if (errorMessage.trim() !== "") { *@
-@*             var errorModal = new bootstrap.Modal(document.getElementById('errorModal')); *@
-@*             errorModal.show(); *@
-@*         } *@
-@*     }); *@
-@* </script> *@
