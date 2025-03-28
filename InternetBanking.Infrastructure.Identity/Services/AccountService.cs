@@ -46,6 +46,14 @@ namespace InternetBanking.Infrastructure.Identity.Services
                 return response;
             }
 
+            if(!user.IsActive)
+            {
+                response.IsSucess = false;
+                response.ErrorMessage = "Su usuario está inactivo, comuníquese con el administrador.";
+                return response;
+            }
+
+
             response.Id = user.Id;
             response.Email = user.Email!;
             response.UserName = user.UserName!;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternetBanking.Core.Application.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InternetBanking.Core.Application.ViewModels.BeneficiaryVMS
 {
-    public class SaveBeneficiaryViewModel
+    public class SaveBeneficiaryViewModel 
     {
         public string Id { get; set; }  // Identificador único de la relación de beneficiario
 

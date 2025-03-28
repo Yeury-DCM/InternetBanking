@@ -37,6 +37,23 @@ namespace InternetBanking.Core.Application.Services
             return _mapper.Map<List<ProductViewModel>>(productsByUserLoggedIn);
         }
 
+        public override async Task<SaveProductViewModel> Add(SaveProductViewModel viewModel)
+        {
+            if(viewModel.ProductTypeID ==3)
+            {
+                var products = await _productRepository.GetAllWithIncludesAsync(new List<string> { "productType", "transactions" });
+                var principalAccount = products.Where(p => p.UserID == viewModel.UserID).FirstOrDefault(P => P.IsPrincipal);
+
+
+
+                principalAccount.Balance += viewModel.Balance;
+                SaveProductViewModel saveProductViewModel = _mapper.Map<SaveProductViewModel>(principalAccount);
+                await base.Update(saveProductViewModel);
+            }
+
+            return await base.Add(viewModel);
+        }
+
         public async Task AddAmount(int productId, decimal amount)
         {
             Product product = await _productRepository.GetByIdAsync(productId);
@@ -55,9 +72,69 @@ namespace InternetBanking.Core.Application.Services
 
             return principalAccoutViewModel;
 
+        }
+
+        public async Task<DeleteProductResponse> DeleteProductAsync(int productId)
+        {
+
+            DeleteProductResponse deleteProductResponse = new DeleteProductResponse() { IsSucess = true };
+            Product product = await _productRepository.GetByIdAsync(productId);
+            deleteProductResponse.UserId = product.UserID;
+
+            try
+            {
+                //Saving Accounts
+                if (product.ProductTypeID == 1)
+                {
+
+                    if(product.IsPrincipal)
+                    {
+                        deleteProductResponse.IsSucess = false;
+                        deleteProductResponse.ErrorMessage = "No se puede borrar la cuenta principal.";
+                        return deleteProductResponse;
+                    }
 
 
+                    Product principalAccount = (await _productRepository.GetAllAsync()).Where(p => p.UserID == product.UserID).FirstOrDefault(p => p.IsPrincipal)!;
+                    if(principalAccount != null)
+                    {
+                        await AddAmount(principalAccount.Id, product.Balance);
+                    }
 
+                }
+
+                //Credit Cards 
+                if (product.ProductTypeID == 2)
+                {
+                    if (product.Balance > 0)
+                    {
+                        deleteProductResponse.ErrorMessage = "Esta tarjeta tiene balance pendiente.";
+                        deleteProductResponse.IsSucess = false;
+                        return deleteProductResponse;
+                    }
+                }
+
+                //Loan
+                if (product.ProductTypeID == 3)
+                {
+                    if (product.Balance > 0)
+                    {
+                        deleteProductResponse.ErrorMessage = "Esta prestamo tiene balance pendiente.";
+                        deleteProductResponse.IsSucess = false;
+                        return deleteProductResponse;
+                    }
+                }
+
+                await base.DeleteById(productId);
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+           
+
+            return deleteProductResponse;
         }
 
     }

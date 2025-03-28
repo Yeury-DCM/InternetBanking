@@ -1,4 +1,5 @@
 ﻿using InternetBanking.Core.Application.Services;
+using InternetBanking.Core.Application.ViewModels.Base;
 using InternetBanking.Core.Application.ViewModels.ProductVMS;
 using InternetBanking.Core.Domain.Entities;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace InternetBanking.Core.Application.ViewModels.PayementVMS
 {
-    public class SavePaymentViewModel
+    public class SavePaymentViewModel : IHasId
     {
         public  int Id { get; set; }
 

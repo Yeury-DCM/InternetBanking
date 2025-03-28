@@ -1,4 +1,5 @@
 ﻿using InternetBanking.Core.Application.Services;
+using InternetBanking.Core.Application.ViewModels.Base;
 using InternetBanking.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Transactions;
 
 namespace InternetBanking.Core.Application.ViewModels.PayementVMS
 {
-   public  class PaymentViewModel
+   public  class PaymentViewModel : IHasId
     {
 
         public  int Id { get; set; }

@@ -1,4 +1,5 @@
-﻿using InternetBanking.Core.Domain.Entities;
+﻿using InternetBanking.Core.Application.ViewModels.Base;
+using InternetBanking.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InternetBanking.Core.Application.ViewModels.TransactionVMS
 {
-     public class SaveTransactionViewModel
+     public class SaveTransactionViewModel : IHasId
     {
         public  int Id { get; set; }
 

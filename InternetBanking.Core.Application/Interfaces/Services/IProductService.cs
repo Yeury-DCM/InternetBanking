@@ -1,4 +1,5 @@
-﻿using InternetBanking.Core.Application.Interfaces.Repositories;
+﻿using InternetBanking.Core.Application.Dtos;
+using InternetBanking.Core.Application.Interfaces.Repositories;
 using InternetBanking.Core.Application.ViewModels.ProductVMS;
 using InternetBanking.Core.Domain.Entities;
 using System;
@@ -13,6 +14,8 @@ namespace InternetBanking.Core.Application.Interfaces.Services
     {
         Task AddAmount(int productId, decimal amount);
         Task<ProductViewModel> GetPrincipalAccountByUserId(string userId);
+
+        Task<DeleteProductResponse> DeleteProductAsync(int productId);
 
     }
 }

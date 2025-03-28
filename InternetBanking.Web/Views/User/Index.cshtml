@@ -73,7 +73,7 @@
                                       
                                         @if(user.Roles.Any(r => r == Roles.Client.ToString()))
                                         {
-                                            <a asp-controller="Product" asp-action="UserProducts" asp-route-username="@user.UserName" class="btn btn-primary btn-sm">
+                                            <a asp-controller="Product" asp-action="AdminView" asp-route-userId="@user.Id" class="btn btn-primary btn-sm">
                                                 Productos
                                             </a>
                                         }

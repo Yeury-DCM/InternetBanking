@@ -11,5 +11,6 @@ namespace InternetBanking.Core.Application.Interfaces.Services
     {
         Task<DashboardViewModel> DashboardInfo();
         Task<DashboardViewModel> GetUserProductsInfo();
+        Task<DashboardViewModel> GetUserProductsInfo(string userId);
     }
 }
