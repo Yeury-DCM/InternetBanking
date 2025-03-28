@@ -16,5 +16,8 @@ namespace InternetBanking.Core.Application.Interfaces.Services
 
         Task<List<UserViewModel>> GetAllUserViewModelsAsync();
         Task<UserViewModel> GetUserViewModelByIdAsync(string id);
+
+        Task ActivateUser(string userId);
+        Task DeactivateUser(string userId);
     }
 }

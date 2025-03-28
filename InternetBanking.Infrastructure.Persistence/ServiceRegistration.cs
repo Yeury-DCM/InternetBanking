@@ -1,6 +1,8 @@
 ﻿using InternetBanking.Core.Application.Interfaces.Repositories;
 using InternetBanking.Infrastructure.Persistence.Contexts;
 using InternetBanking.Infrastructure.Persistence.Repositories;
+using InternetBanking.Infrastructure.Persistence.Seeds;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,9 +26,10 @@ namespace InternetBanking.Infrastructure.Persistence
             else
             {
                 var connectionString = configuration.GetConnectionString("DefaultConnection");
-                services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString, m=> m.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
+                services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString, m => m.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
             }
             #endregion
+
 
             #region DI
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -35,5 +38,31 @@ namespace InternetBanking.Infrastructure.Persistence
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             #endregion
         }
+
+
+        #region seed
+        public async static Task RunProductTypeSeedAsync(this IServiceProvider appServices, IConfiguration configuration)
+            {
+                using (var scope = appServices.CreateScope())
+                {
+                    var serviceProvider = scope.ServiceProvider;
+
+                    try
+                    {
+
+                        var applicationContext = serviceProvider.GetRequiredService<ApplicationContext>();
+
+
+                        await DefaultProductTypes.SeedAsync(applicationContext);
+
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+            }
+
+        #endregion
     }
 }
+

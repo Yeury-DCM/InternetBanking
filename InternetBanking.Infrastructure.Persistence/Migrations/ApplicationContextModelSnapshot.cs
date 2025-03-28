@@ -86,10 +86,7 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("InternetBanking.Core.Domain.Entities.ProductType", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Type")
                         .IsRequired()

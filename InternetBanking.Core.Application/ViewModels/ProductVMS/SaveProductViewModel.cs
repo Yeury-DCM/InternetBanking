@@ -10,7 +10,7 @@ namespace InternetBanking.Core.Application.ViewModels.ProductVMS
 {
     public class SaveProductViewModel
     {
-        public required int Id { get; set; }
+        public  int Id { get; set; }
 
         [Required(ErrorMessage = "Debe ingresar un numero de 9 digitos al producto")]
         [DataType(DataType.Text)]
@@ -20,7 +20,7 @@ namespace InternetBanking.Core.Application.ViewModels.ProductVMS
         public required int ProductTypeID { get; set; }
 
         [Required(ErrorMessage ="Debe ingresar un balance inicial")]
-        public required decimal Balance { get; set; }
+        public  decimal Balance { get; set; }
 
         [Required(ErrorMessage = "Debe ingresar un limite")]
         public decimal? Limit { get; set; }

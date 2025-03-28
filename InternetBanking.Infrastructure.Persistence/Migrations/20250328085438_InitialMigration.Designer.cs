@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetBanking.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250328053841_InitialMigration")]
+    [Migration("20250328085438_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -89,10 +89,7 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("InternetBanking.Core.Domain.Entities.ProductType", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Type")
                         .IsRequired()

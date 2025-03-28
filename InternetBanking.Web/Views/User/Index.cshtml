@@ -1,28 +1,33 @@
 ﻿@using InternetBanking.Core.Application.ViewModels.UserVMS
+@using InternetBanking.Core.Application.Enums
+@using InternetBanking.Core.Application.Helpers
+@using InternetBanking.Core.Application.Dtos
+@inject IHttpContextAccessor httpContextAccessor
 
 @model List<UserViewModel>
 
 @{
     ViewData["Title"] = "Gestión de Usuarios";
+    var userLoggedIn = httpContextAccessor.HttpContext!.Session.Get<AuthenticationResponse>("user");
 }
 
 <div class="container-fluid px-4">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Gestión de Usuarios</h1>
 
-        <a type="button" asp-controller ="User" asp-action = "Add" class="btn btn-info">
+        <a type="button" asp-controller="User" asp-action="Add" class="btn btn-info">
             Crear Nuevo Usuario
         </a>
     </div>
 
     <div class="card shadow mb-4">
-        <div class="card-er py-3">
+        <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Listado de Usuarios</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <t>
+                    <thead>
                         <tr>
                             <th>Nombre Completo</th>
                             <th>Nombre de Usuario</th>
@@ -32,7 +37,7 @@
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
-                    </t>
+                    </thead>
                     <tbody>
                         @foreach (var user in Model)
                         {
@@ -53,13 +58,26 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <div class="btn-group" role="group">
-                                        <button class="btn btn-sm btn-info" onclick="editUser('@user.UserName')">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm @(user.IsActive ? "btn-warning" : "btn-success")" onclick="toggleUserStatus('@user.UserName')">
-                                            <i class="fas @(user.IsActive ? "fa-ban" : "fa-check")"></i>
-                                        </button>
+                                    <div class="btn-group-sm" role="group">
+                                        <a asp-controller="User" asp-action="Edit" asp-route-username="@user.UserName" class="btn btn-info btn-sm mb-1">
+                                            Editar
+                                        </a>
+
+                                        @if(userLoggedIn.Id != user.Id)
+                                        {
+                                            <button class="btn @(user.IsActive ? "btn-warning" : "btn-success") btn-sm mb-1"
+                                                    onclick="showConfirmModal('@user.UserName', @user.IsActive.ToString().ToLower(), '@user.Id')">
+                                                @(user.IsActive ? "Desactivar" : "Activar")
+                                            </button>
+                                        }
+                                      
+                                        @if(user.Roles.Any(r => r == Roles.Client.ToString()))
+                                        {
+                                            <a asp-controller="Product" asp-action="UserProducts" asp-route-username="@user.UserName" class="btn btn-primary btn-sm">
+                                                Productos
+                                            </a>
+                                        }
+                                      
                                     </div>
                                 </td>
                             </tr>
@@ -69,104 +87,58 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-=======
 
-    <!-- Modal para Crear Usuario -->
-    <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <!-- Modal de Confirmación -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-er">
-                    <h5 class="modal-title" id="createUserModalLabel">Crear Nuevo Usuario</h5>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmar Acción</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form id="createUserForm">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Nombre</label>
-                                <input type="text" class="form-control" name="firstName" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Apellido</label>
-                                <input type="text" class="form-control" name="lastName" required>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Cédula</label>
-                                <input type="text" class="form-control" name="identificationNumber" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" name="email" required>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Nombre de Usuario</label>
-                                <input type="text" class="form-control" name="userName" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Tipo de Usuario</label>
-                                <select class="form-select" id="userTypeSelect" name="userType" required>
-                                    <option value="">Seleccione un tipo</option>
-                                    <option value="Admin">Administrador</option>
-                                    <option value="Client">Cliente</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" name="password" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">Confirmar Contraseña</label>
-                                <input type="password" class="form-control" name="confirmPassword" required>
-                            </div>
-                        </div>
-
-                        <div class="mb-3" id="initialAmountContainer" style="display:none;">
-                            <label class="form-label">Monto Inicial</label>
-                            <input type="number" class="form-control" name="initialAmount" min="0" step="0.01">
-                        </div>
-                    </form>
+                <div class="modal-body" id="confirmationModalBody">
+                    ¿Está seguro?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="createUser()">Crear Usuario</button>
+                    <button type="button" class="btn btn-primary" id="confirmActionBtn">Confirmar</button>
                 </div>
             </div>
         </div>
     </div>
->>>>>>> 4f46ddcfaedc3bb193c90c6ef110efa4aa293d75
+
+    <!-- Formulario oculto para enviar -->
+    <form id="statusChangeForm" method="post">
+        <input type="hidden" name="username" id="usernameInput" />
+        <input type="hidden" name="userId" id="idInput" />
+        <input type="hidden" name="action" id="actionInput" />
+    </form>
 </div>
 
 @section Scripts {
     <script>
-        // Script para mostrar/ocultar campo de monto inicial
-        document.getElementById('userTypeSelect').addEventListener('change', function() {
-            const initialAmountContainer = document.getElementById('initialAmountContainer');
-            initialAmountContainer.style.display = this.value === 'Client' ? 'block' : 'none';
-        });
+        function showConfirmModal(username, isActive, userId) {
+            const action = isActive ? 'desactivar' : 'activar';
+            const modalBody = document.getElementById('confirmationModalBody');
+            const confirmBtn = document.getElementById('confirmActionBtn');
 
-        function createUser() {
-            // Lógica para validar y enviar formulario de creación de usuario
-            console.log('Crear usuario');
-        }
+            // Configurar mensaje
+            modalBody.textContent = `¿Está seguro que desea ${action} al usuario ${username}?`;
 
-        function editUser(username) {
-            // Lógica para editar usuario
-            console.log('Editar usuario: ' + username);
-        }
+            // Preparar formulario
+            document.getElementById('usernameInput').value = username;
+            document.getElementById('idInput').value = userId ;
+            document.getElementById('actionInput').value = isActive ? 'Deactivate' : 'Activate';
 
-        function toggleUserStatus(username) {
-            // Lógica para activar/desactivar usuario
-            console.log('Cambiar estado de usuario: ' + username);
+            // Configurar botón de confirmación
+            confirmBtn.onclick = () => {
+                document.getElementById('statusChangeForm').action = `/User/${isActive ? 'Deactivate' : 'Activate'}`;
+                document.getElementById('statusChangeForm').submit();
+            };
+
+            // Mostrar modal
+            var confirmModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            confirmModal.show();
         }
     </script>
 }

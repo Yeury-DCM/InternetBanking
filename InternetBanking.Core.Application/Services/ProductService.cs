@@ -3,15 +3,10 @@ using InternetBanking.Core.Application.Interfaces.Repositories;
 using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.ViewModels.ProductVMS;
 using InternetBanking.Core.Domain.Entities;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using InternetBanking.Core.Application.Dtos;
 using InternetBanking.Core.Application.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace InternetBanking.Core.Application.Services
 {

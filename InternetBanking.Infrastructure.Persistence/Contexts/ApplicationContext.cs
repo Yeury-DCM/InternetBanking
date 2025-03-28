@@ -30,6 +30,9 @@ namespace InternetBanking.Infrastructure.Persistence.Contexts
             modelBuilder.Entity<TransactionType>().ToTable("TipoTransacciones");
             #endregion
 
+            #region property
+            modelBuilder.Entity<ProductType>().Property(p => p.Id).ValueGeneratedNever();
+            #endregion
             #region Keys
             modelBuilder.Entity<Product>().HasKey(p => p.Id);
             modelBuilder.Entity<Beneficiary>().HasKey(b => b.Id);

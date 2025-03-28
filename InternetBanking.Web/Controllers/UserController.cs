@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using InternetBanking.Core.Application.Dtos;
 using InternetBanking.Core.Application.Enums;
+using InternetBanking.Core.Application.Helpers;
 using InternetBanking.Core.Application.Interfaces.Services;
+using InternetBanking.Core.Application.ViewModels.ProductVMS;
 using InternetBanking.Core.Application.ViewModels.UserVMS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +17,12 @@ namespace InternetBanking.Web.Controllers
     {
         IAccountService _accountService;
         IMapper _mapper;
-        public UserController(IAccountService accountService, IMapper mapper)
+        IProductService _productService;
+        public UserController(IAccountService accountService, IMapper mapper, IProductService productService)
         {
             _accountService = accountService;
             _mapper = mapper;
+            _productService = productService;   
         }
         public async Task<IActionResult> Index()
         {
@@ -56,6 +60,35 @@ namespace InternetBanking.Web.Controllers
                 saveUserViewModel.IsSucess = false;
                 return View(saveUserViewModel);
             }
+
+            if(saveUserViewModel.UserType == Roles.Client)
+            {
+                SaveProductViewModel saveProductViewModel = new()
+                {
+                    Balance = saveUserViewModel.InitialAmount,
+                    UserID = response.UserId,
+                    IsPrincipal = true,
+                    ProductTypeID = 1,
+                    ProductNumber = AccountNumberGenerator.Generate()
+                };
+
+                await _productService.Add(saveProductViewModel);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task <IActionResult> Activate (string userId)
+        {
+            await _accountService.ActivateUser(userId);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Deactivate(string userId)
+        {
+            await _accountService.DeactivateUser(userId);
 
             return RedirectToAction("Index");
         }

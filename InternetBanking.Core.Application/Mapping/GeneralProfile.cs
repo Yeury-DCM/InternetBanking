@@ -69,6 +69,10 @@ namespace InternetBanking.Core.Application.Mapping
                 .ForMember(dest => dest.Amount, opt => opt.Ignore())
                 .ForMember(dest => dest.InterestRate, opt => opt.Ignore());
 
+            CreateMap<SaveProductViewModel, Product>()
+                .ReverseMap();
+            CreateMap<ProductViewModel, Product>()
+               .ReverseMap();
 
         }
     }

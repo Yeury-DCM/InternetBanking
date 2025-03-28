@@ -126,6 +126,7 @@ namespace InternetBanking.Infrastructure.Identity.Services
 
                 userViewModels.Add(new UserViewModel
                 {
+                    Id = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     IdentificationNumber = user.IdentificationNumber,
@@ -145,6 +146,7 @@ namespace InternetBanking.Infrastructure.Identity.Services
 
             UserViewModel userViewModel = new()
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 IdentificationNumber = user.IdentificationNumber,
@@ -155,6 +157,30 @@ namespace InternetBanking.Infrastructure.Identity.Services
             };
 
             return userViewModel;
+        }
+
+        public async Task ActivateUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user == null)
+            {
+                return;
+            }
+
+            user.IsActive = true;
+            await _userManager.UpdateAsync(user);
+        }
+
+        public async Task DeactivateUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return;
+            }
+
+            user.IsActive = false;
+            await _userManager.UpdateAsync(user);
         }
 
 
