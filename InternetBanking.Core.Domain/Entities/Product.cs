@@ -14,7 +14,7 @@ namespace InternetBanking.Core.Domain.Entities
         public required decimal Balance { get; set; }
         public  decimal? Limit { get; set; }
         public  bool? IsPrincipal { get; set; }
-        public required int UserID { get; set; }
+        public required string UserID { get; set; }
 
         //Navegation Properties
         public User User { get; set; }

@@ -1,108 +1,78 @@
- 
-//﻿using InternetBanking.Core.Application.Interfaces.Services;
-//using InternetBanking.Core.Application.Services;
-//using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
 
-//﻿using InternetBanking.Core.Application.Enums;
-//using Microsoft.AspNetCore.Authorization;
+using InternetBanking.Core.Application.Interfaces.Services;
+using InternetBanking.Core.Application.Services;
+using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
 
-//using Microsoft.AspNetCore.Mvc;
+using InternetBanking.Core.Application.Enums;
+using Microsoft.AspNetCore.Authorization;
 
-//namespace InternetBanking.Web.Controllers
-//{
-//    [ApiController]
-//    [Route("api/[controller]")]
-//    [Authorize(Roles = "Client")]
+using Microsoft.AspNetCore.Mvc;
 
-//    public class BeneficiaryController : Controller
-//    {
-//        private readonly BeneficiaryService _beneficiaryService;
+namespace InternetBanking.Web.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize(Roles = "Client")]
 
-//        public BeneficiaryController(BeneficiaryService beneficiaryService)
-//        {
-//            _beneficiaryService = beneficiaryService;
-//        }
+    public class BeneficiaryController : ControllerBase
+    {
+        private readonly BeneficiaryService _beneficiaryService;
 
-//        [HttpGet]
-//        public async Task<IActionResult> GetAll()
-//        {
-//            try
-//            {
-//                var beneficiaries = await _beneficiaryService.GetAllViewModel();
-//                return Ok(beneficiaries);
-//            }
-//            catch (Exception ex)
-//            {
-//                return StatusCode(500, $"Internal server error: {ex.Message}");
-//            }
-//        }
+        public BeneficiaryController(BeneficiaryService beneficiaryService)
+        {
+            _beneficiaryService = beneficiaryService;
+        }
 
-//        [HttpGet("{id}")]
-//        public async Task<IActionResult> GetById(int id)
-//        {
-//            try
-//            {
-//                var beneficiary = await _beneficiaryService.GetById(id);
-//                if (beneficiary == null) return NotFound("Beneficiary not found.");
+        [HttpGet("GetAll/{userId}")]
+        public async Task<IActionResult> GetAll(int userId)
+        {
+            try
+            {
+                var beneficiaries = await _beneficiaryService.GetAllBeneficiaries(userId);
+                if (beneficiaries == null || beneficiaries.Count == 0)
+                    return NotFound("No beneficiaries found for the given user.");
 
-//                return Ok(beneficiary);
-//            }
-//            catch (Exception ex)
-//            {
-//                return StatusCode(500, $"Internal server error: {ex.Message}");
-//            }
-//        }
+                return Ok(beneficiaries);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
-//        [HttpPost]
-//        public async Task<IActionResult> Add([FromBody] SaveBeneficiaryViewModel vm)
-//        {
-//            if (!ModelState.IsValid)
-//                return BadRequest("Invalid data.");
+        [HttpPost("Add")]
+        public async Task<IActionResult> Add([FromBody] SaveBeneficiaryViewModel vm)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
 
-//            try
-//            {
-//                await _beneficiaryService.Add(vm);
-//                return Ok("Beneficiary added successfully.");
-//            }
-//            catch (Exception ex)
-//            {
-//                return StatusCode(500, $"Internal server error: {ex.Message}");
-//            }
-//        }
+            try
+            {
+                await _beneficiaryService.AddBeneficiary(vm);
+                return Ok("Beneficiary added successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
-//        [HttpPut("{id}")]
-//        public async Task<IActionResult> Update(int id, [FromBody] SaveBeneficiaryViewModel vm)
-//        {
-//            if (!ModelState.IsValid || vm.Id != id)
-//                return BadRequest("Invalid data or ID mismatch.");
-
-//            try
-//            {
-//                await _beneficiaryService.Update(vm);
-//                return Ok("Beneficiary updated successfully.");
-//            }
-//            catch (Exception ex)
-//            {
-//                return StatusCode(500, $"Internal server error: {ex.Message}");
-//            }
-//        }
-
-//        [HttpDelete("{id}")]
-//        public async Task<IActionResult> Delete(int id)
-//        {
-//            try
-//            {
-//                await _beneficiaryService.Delete(id);
-//                return Ok("Beneficiary deleted successfully.");
-//            }
-//            catch (KeyNotFoundException)
-//            {
-//                return NotFound($"Beneficiary with ID {id} not found.");
-//            }
-//            catch (Exception ex)
-//            {
-//                return StatusCode(500, $"Internal server error: {ex.Message}");
-//            }
-//        }
-//    }
-//}
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _beneficiaryService.DeleteBeneficiary(id);
+                return Ok("Beneficiary deleted successfully.");
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound($"Beneficiary with ID {id} not found.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+    }
+}

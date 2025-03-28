@@ -29,7 +29,7 @@
 //            var originProduct = await ((IPaymentService)this).GetProductWithIncludes(vm.OriginProduct, _paymentRepository);
 //            var BeneficiaryProduct = await ((IPaymentService)this).GetProductWithIncludes(vm.DestinationProduct, _paymentRepository);
 
-//            if(originProduct == null || BeneficiaryProduct == null)
+//            if (originProduct == null || BeneficiaryProduct == null)
 //            {
 //                throw new InvalidOperationException("Error en los datos ingresados, reviselos e intentelo de nuevo.");
 //            }
@@ -46,10 +46,10 @@
 //            return confirViewModel;
 //        }
 
-//        public async  Task ConfirmPayment(PaymentViewModel vm)
+//        public async Task ConfirmPayment(PaymentViewModel vm)
 //        {
-//            var originProduct = await((IPaymentService)this).GetProductWithIncludes(vm.OriginProduct.ProductNumber, _paymentRepository);
-//            var BeneficiaryProduct = await((IPaymentService)this).GetProductWithIncludes(vm.DestinationProductNumber, _paymentRepository);
+//            var originProduct = await ((IPaymentService)this).GetProductWithIncludes(vm.OriginProduct.ProductNumber, _paymentRepository);
+//            var BeneficiaryProduct = await ((IPaymentService)this).GetProductWithIncludes(vm.DestinationProductNumber, _paymentRepository);
 
 //            if (originProduct == null || BeneficiaryProduct == null)
 //            {

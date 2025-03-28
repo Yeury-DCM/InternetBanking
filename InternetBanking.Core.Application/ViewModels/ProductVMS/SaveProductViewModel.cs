@@ -29,7 +29,7 @@ namespace InternetBanking.Core.Application.ViewModels.ProductVMS
         public bool? IsPrincipal { get; set; }
 
         [Required(ErrorMessage = "Debe asignarle el producto a un cliente")]
-        public required int UserID { get; set; }
+        public required string UserID { get; set; }
 
         
     }

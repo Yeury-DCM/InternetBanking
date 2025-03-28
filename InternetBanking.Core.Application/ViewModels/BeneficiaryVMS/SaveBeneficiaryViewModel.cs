@@ -9,10 +9,10 @@ namespace InternetBanking.Core.Application.ViewModels.BeneficiaryVMS
 {
     public class SaveBeneficiaryViewModel
     {
-        public int Id { get; set; }  // Identificador único de la relación de beneficiario
+        public string Id { get; set; }  // Identificador único de la relación de beneficiario
 
         [Required]
-        public int UserId { get; set; }  // ID del usuario que agrega al beneficiario
+        public string UserId { get; set; }  // ID del usuario que agrega al beneficiario
 
         [Required]
         public int ProductId { get; set; }  // ID del producto (cuenta) del beneficiario

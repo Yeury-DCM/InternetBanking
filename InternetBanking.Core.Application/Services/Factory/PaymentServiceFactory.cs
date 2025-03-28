@@ -25,7 +25,6 @@ namespace InternetBanking.Core.Application.Services.Factory
                 PaymentType.CreditCard => _serviceProvider.GetRequiredService<ICreditCardService>(),
                 PaymentType.Loan => _serviceProvider.GetRequiredService<ILoanService>(),
                 _ => throw new InvalidOperationException("Tipo de pago no válido")
-                //PaymentType.Beneficiary => _serviceProvider.GetRequiredService<CreditCardPaymentService>(),
             };
         }
     }

@@ -9,7 +9,7 @@ namespace InternetBanking.Core.Domain.Entities
     public class Transaction
     {
         public required int Id { get; set; }
-        public required int UserID { get; set; }
+        public required string UserID { get; set; }
         public required int ProductID { get; set; }
         public required int TransactionTypeID { get; set; }
         public required decimal Amount { get; set; }
