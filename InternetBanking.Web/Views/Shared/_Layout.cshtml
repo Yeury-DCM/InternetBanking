@@ -65,14 +65,15 @@
                                         @* Validar que el usuario tenga una tarjeta de credito para mostrar esta opcion *@
                                         @* Enlace a la vista de pagos de tarjeta de credito *@
 
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="OtraAccion">Tarjeta de crédito</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Payment" asp-action="CreditCard">Tarjeta de crédito</a></li>
 
                                         @* Validar que el usuario tenga un prestamo para mostrar esta opcion *@
                                         @* Enlace a la vista de pagos de prestamos *@
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="OtraMas">Préstamo</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Payment" asp-action="Loan">Préstamo</a></li>
+
 
                                         @* Enlace a la vista de beneficiarios *@
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="OtraMas">Beneficiarios</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Beneficiary" asp-action="Index">Beneficiarios</a></li>
                                     </ul>
                                 </li>
 

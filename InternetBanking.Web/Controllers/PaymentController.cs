@@ -1,4 +1,5 @@
-﻿using InternetBanking.Core.Application.Interfaces.Repositories;
+﻿using AutoMapper;
+using InternetBanking.Core.Application.Interfaces.Repositories;
 using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.Services.Factory;
 using InternetBanking.Core.Application.ViewModels.PayementVMS;
@@ -13,12 +14,14 @@ namespace InternetBanking.Web.Controllers
     public class PaymentController : Controller
     {
         private readonly PaymentServiceFactory _paymentServiceFactory;
+        private readonly IMapper _mapper;
         private readonly IProductService _productService;
 
-        public PaymentController(PaymentServiceFactory paymentServiceFactory, IProductService productService)
+        public PaymentController(PaymentServiceFactory paymentServiceFactory, IProductService productService, IMapper mapper)
         {
             _paymentServiceFactory = paymentServiceFactory;
             _productService = productService;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> ProcessPayment(SavePaymentViewModel vm)
@@ -27,7 +30,7 @@ namespace InternetBanking.Web.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return RedirectToRoute(new { controller = "Payment", action = "Express" });
+                    return View($"{vm.PaymentType}", vm);
                 }
 
                 // Obtener el servicio de pago correcto
@@ -38,13 +41,13 @@ namespace InternetBanking.Web.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return RedirectToRoute(new { controller = "Payment", action = "Express" });
+                TempData["ErrorMessage"] = ex.Message;
+                return View($"{vm.PaymentType}", vm);
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, "Ocurrió un error al procesar el pago. Inténtalo de nuevo.");
-                return RedirectToRoute(new { controller = "Payment", action = "Express" });
+                TempData["ErrorMessage"] = "Ocurrió un error al procesar el pago. Inténtalo de nuevo.";
+                return View($"{vm.PaymentType}", vm);
             }
         }
 
@@ -58,13 +61,15 @@ namespace InternetBanking.Web.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return RedirectToRoute(new { controller = "Payment", action = "Express" });
+               
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToRoute(new { controller = "Product", action = "Index" });
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, "Ocurrió un error al procesar el pago. Inténtalo de nuevo.");
-                return RedirectToRoute(new { controller = "Payment", action = "Express" });
+              
+                TempData["ErrorMessage"] = "Ocurrió un error al procesar el pago. Inténtalo de nuevo.";
+                return RedirectToRoute(new { controller = "Product", action = "Index" });
             }
         }
         public async Task<IActionResult> Express()

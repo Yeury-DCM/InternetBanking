@@ -16,13 +16,13 @@
     </div>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="card-er py-3">
             <h6 class="m-0 font-weight-bold text-primary">Listado de Usuarios</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                    <t>
                         <tr>
                             <th>Nombre Completo</th>
                             <th>Nombre de Usuario</th>
@@ -32,7 +32,7 @@
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
-                    </thead>
+                    </t>
                     <tbody>
                         @foreach (var user in Model)
                         {
@@ -69,6 +69,81 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+    <!-- Modal para Crear Usuario -->
+    <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-er">
+                    <h5 class="modal-title" id="createUserModalLabel">Crear Nuevo Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createUserForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" class="form-control" name="firstName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Apellido</label>
+                                <input type="text" class="form-control" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Cédula</label>
+                                <input type="text" class="form-control" name="identificationNumber" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nombre de Usuario</label>
+                                <input type="text" class="form-control" name="userName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Tipo de Usuario</label>
+                                <select class="form-select" id="userTypeSelect" name="userType" required>
+                                    <option value="">Seleccione un tipo</option>
+                                    <option value="Admin">Administrador</option>
+                                    <option value="Client">Cliente</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" name="password" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" name="confirmPassword" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3" id="initialAmountContainer" style="display:none;">
+                            <label class="form-label">Monto Inicial</label>
+                            <input type="number" class="form-control" name="initialAmount" min="0" step="0.01">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="createUser()">Crear Usuario</button>
+                </div>
+            </div>
+        </div>
+    </div>
+>>>>>>> 4f46ddcfaedc3bb193c90c6ef110efa4aa293d75
 </div>
 
 @section Scripts {

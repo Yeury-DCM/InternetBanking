@@ -127,7 +127,7 @@ var document = window.document;
 				}
 			}
 		}
-		doc.head.appendChild( script ).parentNode.removeChild( script );
+		doc..appendChild( script ).parentNode.removeChild( script );
 	}
 
 
@@ -727,7 +727,7 @@ var i,
 	},
 
 	rinputs = /^(?:input|select|textarea|button)$/i,
-	rheader = /^h\d$/i,
+	rer = /^h\d$/i,
 
 	// Easily-parseable/retrievable ID or TAG or CLASS selectors
 	rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,
@@ -1989,8 +1989,8 @@ Expr = jQuery.expr = {
 		},
 
 		// Element/input types
-		header: function( elem ) {
-			return rheader.test( elem.nodeName );
+		er: function( elem ) {
+			return rer.test( elem.nodeName );
 		},
 
 		input: function( elem ) {
@@ -4679,7 +4679,7 @@ var wrapMap = {
 	// XHTML parsers do not magically insert elements in the
 	// same way that tag soup parsers do. So we cannot shorten
 	// this by omitting <tbody> or other required elements.
-	thead: [ 1, "<table>", "</table>" ],
+	t: [ 1, "<table>", "</table>" ],
 	col: [ 2, "<table><colgroup>", "</colgroup></table>" ],
 	tr: [ 2, "<table><tbody>", "</tbody></table>" ],
 	td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
@@ -4687,7 +4687,7 @@ var wrapMap = {
 	_default: [ 0, "", "" ]
 };
 
-wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
+wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.t;
 wrapMap.th = wrapMap.td;
 
 // Support: IE <=9 only
@@ -6041,7 +6041,7 @@ jQuery.extend( {
 							if ( special[ type ] ) {
 								jQuery.event.remove( elem, type );
 
-							// This is a shortcut to avoid jQuery.event.remove's overhead
+							// This is a shortcut to avoid jQuery.event.remove's over
 							} else {
 								jQuery.removeEvent( elem, type, data.handle );
 							}
@@ -8153,7 +8153,7 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 			// are based on the document's URL (gh-2965)
 			base = context.createElement( "base" );
 			base.href = document.location.href;
-			context.head.appendChild( base );
+			context..appendChild( base );
 		} else {
 			context = document;
 		}

@@ -16,8 +16,6 @@ namespace InternetBanking.Core.Domain.Entities
   
         public Product account { get; set; }
 
-    
-
     }
 
 }
