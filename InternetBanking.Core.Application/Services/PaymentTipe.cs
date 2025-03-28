@@ -11,6 +11,7 @@ namespace InternetBanking.Core.Application.Services
         Express,
         CreditCard,
         Loan,
-        Beneficiary
+        Beneficiary,
+        Transfer
     }
 }

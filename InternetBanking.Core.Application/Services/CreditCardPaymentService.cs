@@ -54,7 +54,7 @@ namespace InternetBanking.Core.Application.Services
 
             if(CreditCard.Balance == 0)
             {
-                throw new Exception("Esta tarjeta ya está pagada");
+                throw new InvalidOperationException("Esta tarjeta ya está pagada");
             }
 
             if (vm.Amount > CreditCard.Balance)
@@ -62,7 +62,10 @@ namespace InternetBanking.Core.Application.Services
                 var rest = vm.Amount - CreditCard.Balance;
                 OriginProduct.Balance -= vm.Amount;
                 OriginProduct.Balance += rest;
+
+                vm.Amount = CreditCard.Balance;
                 CreditCard.Balance = 0;
+
             }
             else
             {

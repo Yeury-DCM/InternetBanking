@@ -15,7 +15,7 @@ namespace InternetBanking.Core.Application.Interfaces.Services
         Task ConfirmPayment(PaymentViewModel vm);
         async Task<Product> GetProductWithIncludes(string pNumber, IPaymentRepository repository)
         {
-            var product = await repository.GetByNumberWithIncludesAsync(pNumber, new List<string> { "User", "productType" });
+            var product = await repository.GetByNumberWithIncludesAsync(pNumber, new List<string> {"productType" });
             return product;
         }
     }

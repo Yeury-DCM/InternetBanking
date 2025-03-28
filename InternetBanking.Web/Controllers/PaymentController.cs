@@ -42,12 +42,12 @@ namespace InternetBanking.Web.Controllers
             catch (InvalidOperationException ex)
             {
                 TempData["ErrorMessage"] = ex.Message;
-                return View($"{vm.PaymentType}", vm);
+                return RedirectToRoute(new { controller = "Product", action = "Index" });
             }
             catch (Exception)
             {
                 TempData["ErrorMessage"] = "Ocurrió un error al procesar el pago. Inténtalo de nuevo.";
-                return View($"{vm.PaymentType}", vm);
+                return RedirectToRoute(new { controller = "Product", action = "Index" });
             }
         }
 
@@ -73,6 +73,12 @@ namespace InternetBanking.Web.Controllers
             }
         }
         public async Task<IActionResult> Express()
+        {
+            SavePaymentViewModel vm = new SavePaymentViewModel();
+            vm.products = await _productService.GetAll();
+            return View(vm);
+        }
+        public async Task<IActionResult> Transfer()
         {
             SavePaymentViewModel vm = new SavePaymentViewModel();
             vm.products = await _productService.GetAll();
