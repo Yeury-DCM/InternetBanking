@@ -6,13 +6,13 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
-<<<<<<< HEAD
+
   <ItemGroup>
     <Folder Include="Interfaces\Repositories\" />
     <Folder Include="Mapping\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
-=======
+
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="14.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
@@ -23,7 +23,6 @@
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.3" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
->>>>>>> 4f46ddcfaedc3bb193c90c6ef110efa4aa293d75
 
 	<ItemGroup>
 		<ProjectReference Include="..\InternetBanking.Core.Domain\InternetBanking.Core.Domain.csproj" />

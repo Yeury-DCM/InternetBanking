@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-<<<<<<< HEAD
+
 using InternetBanking.Core.Application.Dtos;
-=======
+
 using InternetBanking.Core.Application.ViewModels.AdvanceCashVMS;
 using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
->>>>>>> 4f46ddcfaedc3bb193c90c6ef110efa4aa293d75
+
 using InternetBanking.Core.Application.ViewModels.PayementVMS;
 using InternetBanking.Core.Application.ViewModels.ProductVMS;
 using InternetBanking.Core.Application.ViewModels.TransactionVMS;
@@ -49,14 +49,12 @@ namespace InternetBanking.Core.Application.Mapping
                 .ForMember(dest => dest.transactionType, opt => opt.Ignore())
                 .ReverseMap();
 
-
-<<<<<<< HEAD
             CreateMap<SaveUserViewModel, SaveUserResponse>()
                 .ReverseMap();
 
             CreateMap<SaveUserViewModel, SaveUserRequest>()
                .ReverseMap();
-=======
+
             // Beneficiary to BeneficiaryViewModel
             CreateMap<Beneficiary, BeneficiaryViewModel>()
                 .ForMember(dest => dest.BeneficiaryFullName, opt => opt.MapFrom(src => $"{src.user.Name} {src.user.LastName}"))
@@ -71,7 +69,7 @@ namespace InternetBanking.Core.Application.Mapping
                 .ForMember(dest => dest.SavingsAccountId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Amount, opt => opt.Ignore())
                 .ForMember(dest => dest.InterestRate, opt => opt.Ignore());
->>>>>>> 4f46ddcfaedc3bb193c90c6ef110efa4aa293d75
+
 
         }
     }
