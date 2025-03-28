@@ -13,7 +13,7 @@ namespace InternetBanking.Core.Application.ViewModels.TransactionVMS
         public  int Id { get; set; }
 
         [Required(ErrorMessage ="Debe ingresar un usuario")]
-        public required int UserID { get; set; }
+        public required string UserID { get; set; }
 
         [Required(ErrorMessage = "Debe ingresar un producto")]
         public required int ProductID { get; set; }

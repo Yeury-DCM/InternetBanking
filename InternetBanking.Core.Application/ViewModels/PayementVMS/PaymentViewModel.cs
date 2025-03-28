@@ -16,7 +16,7 @@ namespace InternetBanking.Core.Application.ViewModels.PayementVMS
         public  string DestinationProductNumber { get; set; }
         public  Product OriginProduct { get; set; }
         public  int ProductTypeID { get; set; }
-        public  int UserID { get; set; }
+        public  string UserID { get; set; }
         public  decimal Amount { get; set; }
         public PaymentType PaymentType { get; set; }
 

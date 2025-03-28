@@ -8,7 +8,7 @@ namespace InternetBanking.Core.Domain.Entities
 {
     public class User
     {
-        public required int Id { get; set; }
+        public required string Id { get; set; }
         public required string UserName { get; set; }
         public required string Name { get; set; }
 
