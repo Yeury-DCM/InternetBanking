@@ -55,7 +55,7 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasDefaultValue(0.00m);
 
-                    b.Property<bool?>("IsPrincipal")
+                    b.Property<bool>("IsPrincipal")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);

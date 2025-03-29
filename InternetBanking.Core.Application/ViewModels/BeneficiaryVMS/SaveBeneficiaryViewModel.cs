@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace InternetBanking.Core.Application.ViewModels.BeneficiaryVMS
 {
-    public class SaveBeneficiaryViewModel 
+    public class SaveBeneficiaryViewModel : IHasId
     {
-        public string Id { get; set; }  // Identificador único de la relación de beneficiario
+        public int Id { get; set; }  // Identificador único de la relación de beneficiario
 
         [Required]
         public string UserId { get; set; }  // ID del usuario que agrega al beneficiario

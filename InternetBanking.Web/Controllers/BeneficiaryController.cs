@@ -7,71 +7,72 @@ using InternetBanking.Core.Application.Enums;
 using Microsoft.AspNetCore.Authorization;
 
 using Microsoft.AspNetCore.Mvc;
+using InternetBanking.Core.Domain.Entities;
 
 namespace InternetBanking.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Client")]
-
-    public class BeneficiaryController : ControllerBase
+    public class BeneficiaryController : Controller
     {
-        private readonly BeneficiaryService _beneficiaryService;
+        private readonly IBeneficiaryService _beneficiaryService;
 
-        public BeneficiaryController(BeneficiaryService beneficiaryService)
+        public BeneficiaryController(IBeneficiaryService beneficiaryService)
         {
             _beneficiaryService = beneficiaryService;
         }
 
-        [HttpGet("GetAll/{userId}")]
-        public async Task<IActionResult> GetAll(string userId)
+        [HttpGet]
+        [Route("")]
+        [Route("Index")]
+        public async Task<IActionResult> Index()
         {
-            try
-            {
-                var beneficiaries = await _beneficiaryService.GetAllBeneficiaries(userId);
-                if (beneficiaries == null || beneficiaries.Count == 0)
-                    return NotFound("No beneficiaries found for the given user.");
-
-                return Ok(beneficiaries);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            string userId = User.FindFirst("Id")?.Value;
+            var beneficiaries = await _beneficiaryService.GetAllBeneficiaries(userId);
+            return View(beneficiaries);
         }
 
-        [HttpPost("Add")]
-        public async Task<IActionResult> Add([FromBody] SaveBeneficiaryViewModel vm)
+        [HttpGet]
+        [Route("Create")]
+        public IActionResult Create()
+        {
+            return View(new SaveBeneficiaryViewModel());
+        }
+
+        [HttpPost]
+        [Route("Create")]
+        public async Task<IActionResult> Create(SaveBeneficiaryViewModel vm)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Invalid data.");
+            {
+                return View(vm);
+            }
 
             try
             {
+                vm.UserId = User.FindFirst("Id")?.Value;
                 await _beneficiaryService.AddBeneficiary(vm);
-                return Ok("Beneficiary added successfully.");
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                ModelState.AddModelError("AccountNumber", ex.Message);
+                return View(vm);
             }
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpPost]
+        [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 await _beneficiaryService.DeleteBeneficiary(id);
-                return Ok("Beneficiary deleted successfully.");
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound($"Beneficiary with ID {id} not found.");
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return RedirectToAction("Index");
             }
         }
     }

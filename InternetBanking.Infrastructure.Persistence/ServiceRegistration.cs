@@ -36,6 +36,7 @@ namespace InternetBanking.Infrastructure.Persistence
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IBeneficiaryRepository, BeneficiaryRepository>();
             #endregion
         }
 

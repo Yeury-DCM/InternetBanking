@@ -46,7 +46,7 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                     ProductTypeID = table.Column<int>(type: "int", nullable: false),
                     Balance = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false, defaultValue: 0.00m),
                     Limit = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
-                    IsPrincipal = table.Column<bool>(type: "bit", nullable: true, defaultValue: false),
+                    IsPrincipal = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     UserID = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

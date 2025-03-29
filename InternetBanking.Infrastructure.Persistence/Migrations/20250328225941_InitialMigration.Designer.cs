@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetBanking.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250328085438_InitialMigration")]
+    [Migration("20250328225941_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -58,7 +58,7 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasDefaultValue(0.00m);
 
-                    b.Property<bool?>("IsPrincipal")
+                    b.Property<bool>("IsPrincipal")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
