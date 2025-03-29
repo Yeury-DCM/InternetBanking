@@ -18,7 +18,7 @@ namespace InternetBanking.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            string userId = User.FindFirst("Id")?.Value;
+            string userId = "77559e0f-1a4b-4d08-9393-02b25bc13527";
             var beneficiaries = await _beneficiaryService.GetAllBeneficiaries(userId);
             return View(beneficiaries);
         }
@@ -34,10 +34,10 @@ namespace InternetBanking.Web.Controllers
         {
             Console.WriteLine("Create action hit with data: " + vm.BeneficiaryFirstName); //debug purposes
 
-            //if (!ModelState.IsValid)
-            //{
-            //    return View("SaveBeneficiary", vm);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View("SaveBeneficiary", vm);
+            }
 
             try
             {
