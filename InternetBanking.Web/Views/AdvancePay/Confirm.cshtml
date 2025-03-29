@@ -1,0 +1,76 @@
+﻿@using InternetBanking.Core.Application.ViewModels.AdvanceCashVMS
+@model SaveAdvanceCashViewModel
+@{
+    ViewData["Title"] = "Confirmar Avance de Efectivo";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h4>Confirmar Avance de Efectivo</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    Por favor revise los detalles de la operación antes de confirmar.
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h5>Desde:</h5>
+                        <p><strong>Tarjeta de Crédito:</strong> @ViewBag.CreditCardName</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Hacia:</h5>
+                        <p><strong>Cuenta de Ahorro:</strong> @ViewBag.SavingsAccountName</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Monto solicitado:</th>
+                                <td class="text-end">$@Model.Amount.ToString("N2")</td>
+                            </tr>
+                            <tr>
+                                <th>Tasa de interés:</th>
+                                <td class="text-end">@Model.InterestRate%</td>
+                            </tr>
+                            <tr>
+                                <th>Interés:</th>
+                                <td class="text-end">$@ViewBag.Interest.ToString("N2")</td>
+                            </tr>
+                            <tr class="table-primary">
+                                <th>Total a pagar:</th>
+                                <td class="text-end">$@ViewBag.TotalDebt.ToString("N2")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-warning mt-3">
+                    <p>Al confirmar esta operación:</p>
+                    <ul>
+                        <li>Se depositará $@Model.Amount.ToString("N2") en su cuenta de ahorro.</li>
+                        <li>Se cargará un total de $@ViewBag.TotalDebt.ToString("N2") a su tarjeta de crédito.</li>
+                        <li>El pago de este avance estará sujeto a las condiciones de pago de su tarjeta.</li>
+                    </ul>
+                </div>
+
+                <form asp-action="ConfirmPost" method="post">
+                    <input type="hidden" asp-for="CreditCardId" />
+                    <input type="hidden" asp-for="SavingsAccountId" />
+                    <input type="hidden" asp-for="Amount" />
+                    <input type="hidden" asp-for="InterestRate" />
+
+                    <div class="form-group text-center mt-4">
+                        <button type="submit" class="btn btn-success">Confirmar Avance</button>
+                        <a asp-action="Index" class="btn btn-secondary">Modificar</a>
+                        <a asp-controller="Account" asp-action="Details" class="btn btn-danger">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

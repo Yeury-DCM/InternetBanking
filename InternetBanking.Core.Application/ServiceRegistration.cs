@@ -22,6 +22,7 @@ namespace InternetBanking.Core.Application
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IBeneficiaryService, BeneficiaryService>();
             services.AddScoped<PaymentServiceFactory>();
+            services.AddScoped<AdvanceCashService>();
 
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());

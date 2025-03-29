@@ -1,18 +1,12 @@
-
-using InternetBanking.Core.Application.Interfaces.Services;
-using InternetBanking.Core.Application.Services;
-using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
-
-using InternetBanking.Core.Application.Enums;
-using Microsoft.AspNetCore.Authorization;
-
 using Microsoft.AspNetCore.Mvc;
-using InternetBanking.Core.Domain.Entities;
+using InternetBanking.Core.Application.Interfaces.Services;
+using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
+using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Threading.Tasks;
 
 namespace InternetBanking.Web.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
     public class BeneficiaryController : Controller
     {
         private readonly IBeneficiaryService _beneficiaryService;
@@ -22,9 +16,6 @@ namespace InternetBanking.Web.Controllers
             _beneficiaryService = beneficiaryService;
         }
 
-        [HttpGet]
-        [Route("")]
-        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             string userId = User.FindFirst("Id")?.Value;
@@ -33,47 +24,46 @@ namespace InternetBanking.Web.Controllers
         }
 
         [HttpGet]
-        [Route("Create")]
         public IActionResult Create()
         {
-            return View(new SaveBeneficiaryViewModel());
+            return View("SaveBeneficiary", new SaveBeneficiaryViewModel());
         }
 
         [HttpPost]
-        [Route("Create")]
         public async Task<IActionResult> Create(SaveBeneficiaryViewModel vm)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
+            Console.WriteLine("Create action hit with data: " + vm.BeneficiaryFirstName); //debug purposes
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("SaveBeneficiary", vm);
+            //}
 
             try
             {
-                vm.UserId = User.FindFirst("Id")?.Value;
+                //vm.UserId = User.FindFirst("Id")?.Value;
+                vm.UserId = "77559e0f-1a4b-4d08-9393-02b25bc13527";
                 await _beneficiaryService.AddBeneficiary(vm);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("AccountNumber", ex.Message);
-                return View(vm);
+                return View("SaveBeneficiary", vm);
             }
         }
 
-        [HttpPost]
-        [Route("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 await _beneficiaryService.DeleteBeneficiary(id);
-                return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return RedirectToAction("Index");
+                // Log error or handle it appropriately
             }
+            return RedirectToAction("Index");
         }
     }
 }

@@ -25,7 +25,7 @@ namespace InternetBanking.Core.Application.Services
 
         public async Task AddBeneficiary(SaveBeneficiaryViewModel vm)
         {
-            var products = await _productRepository.GetAllWithIncludesAsync(new List<string> { "ProductType", "User" });
+            var products = await _productRepository.GetAllAsync();
             var product = products.FirstOrDefault(p => p.ProductNumber == vm.AccountNumber);
 
             if (product == null)
@@ -35,7 +35,7 @@ namespace InternetBanking.Core.Application.Services
 
             UserViewModel user = await _accountService.GetUserViewModelByIdAsync(product.UserID);
 
-            if (user == null || user.IsActive)
+            if (user == null || !user.IsActive)
             {
                 throw new Exception("Usuario relacionado con el número de cuenta está inactivo.");
             }
