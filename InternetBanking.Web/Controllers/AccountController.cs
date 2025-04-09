@@ -4,6 +4,7 @@ using InternetBanking.Core.Application.Helpers;
 using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.ViewModels.AccountVMS;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
@@ -14,17 +15,20 @@ namespace InternetBanking.Web.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly AuthenticationResponse _authenticationResponse;
 
         public AccountController(IAccountService accountService, IHttpContextAccessor httpContextAccessor)
         {
             _accountService = accountService;
             _httpContextAccessor = httpContextAccessor;
+            _authenticationResponse = httpContextAccessor.HttpContext!.Session.Get<AuthenticationResponse>("user")!;
+
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> LogIn()
         {
-
+            
             bool isAuthenticated = User.Identity!.IsAuthenticated;
             bool isAdmin = User.IsInRole("Admin");
             var userSession = _httpContextAccessor.HttpContext!.Session.Get<AuthenticationResponse>("user");

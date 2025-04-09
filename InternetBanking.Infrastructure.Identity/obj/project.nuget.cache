@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "gso7wVuLYUk=",
   "success": true,
   "projectFilePath": "C:\\Users\\YEURY-DCM\\Desktop\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj",
+=======
+  "dgSpecHash": "UAuteGkzY+g=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\YEURY-DCM\\source\\repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj",
+>>>>>>> f5c1d1e78dc1a10725ba97140f08fc702c713845
   "expectedPackageFiles": [
     "C:\\Users\\YEURY-DCM\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\YEURY-DCM\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",

@@ -4127,11 +4127,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\YEURY-DCM\\Desktop\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj",
       "projectName": "InternetBanking.Infrastructure.Identity",
       "projectPath": "C:\\Users\\YEURY-DCM\\Desktop\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj",
       "packagesPath": "C:\\Users\\YEURY-DCM\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\YEURY-DCM\\Desktop\\InternetBanking\\InternetBanking.Infrastructure.Identity\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\YEURY-DCM\\source\\repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj",
+      "projectName": "InternetBanking.Infrastructure.Identity",
+      "projectPath": "C:\\Users\\YEURY-DCM\\source\\repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\InternetBanking.Infrastructure.Identity.csproj",
+      "packagesPath": "C:\\Users\\YEURY-DCM\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\YEURY-DCM\\source\\repos\\InternetBanking\\InternetBanking.Infrastructure.Identity\\obj\\",
+>>>>>>> f5c1d1e78dc1a10725ba97140f08fc702c713845
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4152,8 +4160,13 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\YEURY-DCM\\Desktop\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj": {
               "projectPath": "C:\\Users\\YEURY-DCM\\Desktop\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj"
+=======
+            "C:\\Users\\YEURY-DCM\\source\\repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj": {
+              "projectPath": "C:\\Users\\YEURY-DCM\\source\\repos\\InternetBanking\\InternetBanking.Core.Application\\InternetBanking.Core.Application.csproj"
+>>>>>>> f5c1d1e78dc1a10725ba97140f08fc702c713845
             }
           }
         }
@@ -4168,7 +4181,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net9.0": {
@@ -4215,7 +4228,11 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+=======
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.103/PortableRuntimeIdentifierGraph.json"
+>>>>>>> f5c1d1e78dc1a10725ba97140f08fc702c713845
       }
     }
   }

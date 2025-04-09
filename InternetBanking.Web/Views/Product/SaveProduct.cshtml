@@ -1,0 +1,70 @@
+﻿@model InternetBanking.Core.Application.ViewModels.ProductVMS.SaveProductViewModel
+
+@{
+    ViewData["Title"] = "Crear Nuevo Producto";
+    var productTypeId = Model.ProductTypeID;
+    var productTypes = new Dictionary<int, string> {
+        {1, "Cuenta de Ahorro"},
+        {3, "Préstamo"},
+        {2, "Tarjeta de Crédito"}
+    };
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm rounded-4 border-0">
+                <div class="card-header bg-primary text-white text-center rounded-top-4">
+                    <h5 class="card-title mb-0 py-3">
+                        Crear @productTypes[productTypeId]
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create" asp-controller="Product" method="post">
+                        <input type="hidden" asp-for="ProductTypeID" value="@productTypeId" />
+                        <input type="hidden" asp-for="UserID" />
+
+                        @if (productTypeId == 1 || productTypeId == 3)
+                        {
+                            <div class="mb-3">
+                                <label asp-for="Balance" class="form-label">Balance</label>
+                                <input asp-for="Balance" type="number" step="0.01" class="form-control" placeholder="Ingrese el balance" />
+                                <span asp-validation-for="Balance" class="text-danger"></span>
+                            </div>
+                        }
+
+                        @if (productTypeId == 2)
+                        {
+                            <div class="mb-3">
+                                <label asp-for="Limit" class="form-label">Límite de Crédito</label>
+                                <input asp-for="Limit" type="number" step="0.01" class="form-control" placeholder="Ingrese límite de crédito" />
+                                <span asp-validation-for="Limit" class="text-danger"></span>
+                            </div>
+                        }
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save me-2"></i>Guardar Producto
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Validación del lado del cliente
+    $(function() {
+        $('form').validate({
+            errorClass: 'text-danger',
+            highlight: function(element) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>

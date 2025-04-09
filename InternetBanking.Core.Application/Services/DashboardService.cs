@@ -1,6 +1,11 @@
-﻿using InternetBanking.Core.Application.Interfaces.Repositories;
+﻿using InternetBanking.Core.Application.Dtos;
+using InternetBanking.Core.Application.Helpers;
+using InternetBanking.Core.Application.Interfaces.Repositories;
 using InternetBanking.Core.Application.Interfaces.Services;
 using InternetBanking.Core.Application.ViewModels.DasboardVMS;
+using InternetBanking.Core.Domain.Entities;
+using Microsoft.AspNetCore.Http;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +18,18 @@ namespace InternetBanking.Core.Application.Services
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IProductRepository _productRepository;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IAccountService _accountService;
+        private readonly AuthenticationResponse _userAutneticated;
 
-        public DashboardService(ITransactionRepository transactionRepository, IProductRepository productRepository)
+        public DashboardService(ITransactionRepository transactionRepository, IProductRepository productRepository, IHttpContextAccessor contextAccessor, IAccountService accountService)
         {
             _transactionRepository = transactionRepository;
             _productRepository = productRepository;
+            _contextAccessor = contextAccessor;
+            _userAutneticated = _contextAccessor.HttpContext.Session.Get<AuthenticationResponse>("user")!;
+            _accountService = accountService;
+           
         }
 
 
@@ -26,6 +38,11 @@ namespace InternetBanking.Core.Application.Services
             var transactions = await _transactionRepository.GetAllAsync();
             var products = await _productRepository.GetAllAsync();
             var payments = await _transactionRepository.GetAllAsync();
+
+            //USUARIOS
+
+            var userViewModels = await _accountService.GetAllUserViewModelsAsync();
+            var activeUsers = userViewModels.Where(u => u.IsActive).ToList();
 
             var paymentsfiltred = payments.Where(p => p.TransactionTypeID != 4);
             var todaytransaction = transactions.Where(t => t.TransactionDate.Date == DateTime.Today);
@@ -38,19 +55,40 @@ namespace InternetBanking.Core.Application.Services
                 paymentsCount = paymentsfiltred.Count(),
                 todayTransactionsCount = todaytransaction.Count(),
                 todayPaymentsCount = todaypayments.Count(),
+                
             };
             return dvm;
         }
 
         public async Task<DashboardViewModel> GetUserProductsInfo()
         {
-            var products = await _productRepository.GetAllWithIncludesAsync(new List<string> { "productType" });
+            var products = (await _productRepository.GetAllWithIncludesAsync(new List<string> { "productType" }));
             var transactions = (await _transactionRepository.GetAllWithIncludesAsync(new List<string> { "transactionType" })).OrderByDescending(t=> t.TransactionDate).ToList();
+
+            List<Product> productsFiltered = products.Where(p => p.UserID == _userAutneticated.Id).ToList();
+            List<Transaction> tarnsactionsFiltered = transactions.Where(p => p.UserID == _userAutneticated.Id).ToList();
 
             DashboardViewModel dvm = new DashboardViewModel
             {
-                products = products,
-                transactions = transactions
+                products = productsFiltered,
+                transactions = tarnsactionsFiltered
+            };
+            return dvm;
+        }
+
+        public async Task<DashboardViewModel> GetUserProductsInfo(string userId)
+        {
+            var user = await _accountService.GetUserViewModelByIdAsync(userId);
+            var products = (await _productRepository.GetAllWithIncludesAsync(new List<string> { "productType" }));
+            var transactions = (await _transactionRepository.GetAllWithIncludesAsync(new List<string> { "transactionType" })).OrderByDescending(t => t.TransactionDate).ToList();
+
+            List<Product> productsFiltered = products.Where(p => p.UserID == user.Id).ToList();
+            List<Transaction> tarnsactionsFiltered = transactions.Where(p => p.UserID == user.Id).ToList();
+
+            DashboardViewModel dvm = new DashboardViewModel
+            {
+                products = productsFiltered,
+                transactions = tarnsactionsFiltered
             };
             return dvm;
         }

@@ -1,4 +1,5 @@
-﻿using InternetBanking.Core.Domain.Entities;
+﻿using InternetBanking.Core.Application.ViewModels.Base;
+using InternetBanking.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,28 +9,27 @@ using System.Threading.Tasks;
 
 namespace InternetBanking.Core.Application.ViewModels.ProductVMS
 {
-    public class SaveProductViewModel
+    public class SaveProductViewModel : IHasId
     {
-        public required int Id { get; set; }
+        public  int Id { get; set; }
 
         [Required(ErrorMessage = "Debe ingresar un numero de 9 digitos al producto")]
         [DataType(DataType.Text)]
-        public required string ProductNumber { get; set; }
+        public string ProductNumber { get; set; }
 
         [Required(ErrorMessage = "Debe expecificar el tipo de producto")]
-        public required int ProductTypeID { get; set; }
+        public int ProductTypeID { get; set; }
 
         [Required(ErrorMessage ="Debe ingresar un balance inicial")]
-        public required decimal Balance { get; set; }
+        public  decimal Balance { get; set; }
 
         [Required(ErrorMessage = "Debe ingresar un limite")]
         public decimal? Limit { get; set; }
 
-        [Required(ErrorMessage = "Debe indicar si el producto es principal")]
-        public bool? IsPrincipal { get; set; }
+        public bool IsPrincipal { get; set; } = false;
 
         [Required(ErrorMessage = "Debe asignarle el producto a un cliente")]
-        public required int UserID { get; set; }
+        public required string UserID { get; set; }
 
         
     }

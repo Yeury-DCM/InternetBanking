@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetBanking.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250326070416_InitialMigration")]
+    [Migration("20250328225941_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -27,23 +27,19 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("InternetBanking.Core.Domain.Entities.Beneficiary", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductID");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Beneficiarios", (string)null);
                 });
@@ -62,7 +58,7 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasDefaultValue(0.00m);
 
-                    b.Property<bool?>("IsPrincipal")
+                    b.Property<bool>("IsPrincipal")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
@@ -79,14 +75,13 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                     b.Property<int>("ProductTypeID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductTypeID");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Productos", (string)null);
                 });
@@ -94,10 +89,7 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("InternetBanking.Core.Domain.Entities.ProductType", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -129,16 +121,15 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                     b.Property<int>("TransactionTypeID")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductID");
 
                     b.HasIndex("TransactionTypeID");
-
-                    b.HasIndex("UserID");
 
                     b.ToTable("Transacciones", (string)null);
                 });
@@ -160,76 +151,6 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                     b.ToTable("TipoTransacciones", (string)null);
                 });
 
-            modelBuilder.Entity("InternetBanking.Core.Domain.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Identification")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Mail")
-                        .IsRequired()
-                        .HasMaxLength(320)
-                        .HasColumnType("nvarchar(320)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<bool>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("UserTypeID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserTypeID");
-
-                    b.ToTable("Usuarios", (string)null);
-                });
-
-            modelBuilder.Entity("InternetBanking.Core.Domain.Entities.UserType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TipoUsuarios", (string)null);
-                });
-
             modelBuilder.Entity("InternetBanking.Core.Domain.Entities.Beneficiary", b =>
                 {
                     b.HasOne("InternetBanking.Core.Domain.Entities.Product", "account")
@@ -238,15 +159,7 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("InternetBanking.Core.Domain.Entities.User", "user")
-                        .WithMany("beneficiaries")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("account");
-
-                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("InternetBanking.Core.Domain.Entities.Product", b =>
@@ -256,14 +169,6 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                         .HasForeignKey("ProductTypeID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("InternetBanking.Core.Domain.Entities.User", "User")
-                        .WithMany("products")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("User");
 
                     b.Navigation("productType");
                 });
@@ -282,28 +187,9 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("InternetBanking.Core.Domain.Entities.User", "User")
-                        .WithMany("transactions")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Product");
 
-                    b.Navigation("User");
-
                     b.Navigation("transactionType");
-                });
-
-            modelBuilder.Entity("InternetBanking.Core.Domain.Entities.User", b =>
-                {
-                    b.HasOne("InternetBanking.Core.Domain.Entities.UserType", "userType")
-                        .WithMany("users")
-                        .HasForeignKey("UserTypeID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("userType");
                 });
 
             modelBuilder.Entity("InternetBanking.Core.Domain.Entities.Product", b =>
@@ -319,20 +205,6 @@ namespace InternetBanking.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("InternetBanking.Core.Domain.Entities.TransactionType", b =>
                 {
                     b.Navigation("transactions");
-                });
-
-            modelBuilder.Entity("InternetBanking.Core.Domain.Entities.User", b =>
-                {
-                    b.Navigation("beneficiaries");
-
-                    b.Navigation("products");
-
-                    b.Navigation("transactions");
-                });
-
-            modelBuilder.Entity("InternetBanking.Core.Domain.Entities.UserType", b =>
-                {
-                    b.Navigation("users");
                 });
 #pragma warning restore 612, 618
         }

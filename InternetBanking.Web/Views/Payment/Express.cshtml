@@ -29,7 +29,7 @@
                                     if (product.ProductTypeID == 1)
                                     {
                                         <option value="@product.ProductNumber">
-                                            @($"{product.productType.Type} - {product.Balance:C}")
+                                            @($"{product.productType.Type}  **{product.ProductNumber[^4..]}- {product.Balance:C}")
                                         </option>
                                     }
                                 }
@@ -44,10 +44,13 @@
                             <span asp-validation-for="DestinationProduct" class="invalid-feedback"></span>
                         </div>
 
-                       
+
                         <div class="mb-3">
                             <label asp-for="Amount" class="form-label fw-semibold">Monto:</label>
-                            <input asp-for="Amount" class="form-control">
+                            <div class="input-group">
+                                <span class="input-group-text">RD$</span>
+                                <input asp-for="Amount" class="form-control placeholder="0.00">
+                            </div>                            
                             <span asp-validation-for="Amount" class="invalid-feedback"></span>
                         </div>
 

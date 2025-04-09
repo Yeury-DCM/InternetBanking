@@ -1,4 +1,5 @@
-﻿using InternetBanking.Core.Domain.Entities;
+﻿using InternetBanking.Core.Application.ViewModels.Base;
+using InternetBanking.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InternetBanking.Core.Application.ViewModels.DasboardVMS
 {
-    public class DashboardViewModel
+    public class DashboardViewModel  
     {
         public int productsCount { get; set; }
         public int transactionsCount { get; set; }

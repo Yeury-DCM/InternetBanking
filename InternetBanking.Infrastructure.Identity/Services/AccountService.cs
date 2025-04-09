@@ -1,4 +1,5 @@
 ﻿
+using Azure;
 using InternetBanking.Core.Application.Dtos;
 using InternetBanking.Core.Application.Enums;
 using InternetBanking.Core.Application.Interfaces.Services;
@@ -6,6 +7,7 @@ using InternetBanking.Core.Application.ViewModels.UserVMS;
 using InternetBanking.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace InternetBanking.Infrastructure.Identity.Services
 {
@@ -44,6 +46,14 @@ namespace InternetBanking.Infrastructure.Identity.Services
                 return response;
             }
 
+            if(!user.IsActive)
+            {
+                response.IsSucess = false;
+                response.ErrorMessage = "Su usuario está inactivo, comuníquese con el administrador.";
+                return response;
+            }
+
+
             response.Id = user.Id;
             response.Email = user.Email!;
             response.UserName = user.UserName!;
@@ -61,10 +71,10 @@ namespace InternetBanking.Infrastructure.Identity.Services
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<CreateUserResponse> CreateUser(CreateUserRequest request)
+        public async Task<SaveUserResponse> CreateUser(SaveUserRequest request)
         {
-            CreateUserResponse response = new() { IsSucess = true };
-
+           
+            SaveUserResponse response = new() { IsSucess = true };
 
             var userWithSameUserName = await _userManager.FindByNameAsync(request.UserName);
 
@@ -90,13 +100,14 @@ namespace InternetBanking.Infrastructure.Identity.Services
                 UserName = request.UserName.Trim(),
                 FirstName = request.FirstName.Trim(),
                 LastName = request.LastName.Trim(),
-                PhoneNumber = request.PhoneNumber.Trim()
+                IdentificationNumber = request.IdentificationNumber
 
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
 
-
+            await _userManager.AddToRoleAsync(user, request.Role.ToString());
+                
             if (result.Succeeded)
             {
                 response.UserId = user.Id;
@@ -116,17 +127,24 @@ namespace InternetBanking.Infrastructure.Identity.Services
         {
             var users = await _userManager.Users.ToListAsync(); // Obtiene los usuarios primero
 
-            var userViewModels = await Task.WhenAll(users.Select(async user => new UserViewModel
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                IdentificationNumer = user.IdentificationNumer,
-                UserName = user.UserName!,
-                Email = user.Email,
-                Roles = (List<string>) await _userManager.GetRolesAsync(user),
-                IsActive = user.IsActive
+            var userViewModels = new List<UserViewModel>();
 
-            }));
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+
+                userViewModels.Add(new UserViewModel
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    IdentificationNumber = user.IdentificationNumber,
+                    UserName = user.UserName!,
+                    Email = user.Email,
+                    Roles = roles.ToList(),
+                    IsActive = user.IsActive
+                });
+            }
 
             return userViewModels.ToList();
         }
@@ -137,9 +155,10 @@ namespace InternetBanking.Infrastructure.Identity.Services
 
             UserViewModel userViewModel = new()
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                IdentificationNumer = user.IdentificationNumer,
+                IdentificationNumber = user.IdentificationNumber,
                 UserName = user.UserName!,
                 Email = user.Email,
                 Roles = (List<string>)await _userManager.GetRolesAsync(user),
@@ -149,6 +168,49 @@ namespace InternetBanking.Infrastructure.Identity.Services
             return userViewModel;
         }
 
+        public async Task ActivateUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if(user == null)
+            {
+                return;
+            }
+
+            user.IsActive = true;
+            await _userManager.UpdateAsync(user);
+        }
+
+        public async Task DeactivateUser(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return;
+            }
+
+            user.IsActive = false;
+            await _userManager.UpdateAsync(user);
+        }
+
+        public async Task UpdateUserAsync(SaveUserViewModel saveUserViewModel)
+        {
+
+            var user = await _userManager.FindByIdAsync(saveUserViewModel.Id);
+
+            user.FirstName = saveUserViewModel.FirstName;
+            user.LastName = saveUserViewModel.LastName;
+            user.IdentificationNumber = saveUserViewModel.IdentificationNumber;
+            user.Email = saveUserViewModel.Email;
+            user.UserName = saveUserViewModel.UserName.Trim();
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if(!string.IsNullOrEmpty(saveUserViewModel.Password))
+            {
+                await _userManager.RemovePasswordAsync(user);
+                await _userManager.AddPasswordAsync(user, saveUserViewModel.Password);
+            }
+        }
 
     }
 }

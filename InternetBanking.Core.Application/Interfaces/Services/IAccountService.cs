@@ -11,10 +11,14 @@ namespace InternetBanking.Core.Application.Interfaces.Services
     public interface IAccountService
     {
         Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request);
-        Task<CreateUserResponse> CreateUser(CreateUserRequest request);
+        Task<SaveUserResponse> CreateUser(SaveUserRequest request);
         Task SignOutAsync();
 
+        Task UpdateUserAsync(SaveUserViewModel saveUserViewModel);
         Task<List<UserViewModel>> GetAllUserViewModelsAsync();
         Task<UserViewModel> GetUserViewModelByIdAsync(string id);
+
+        Task ActivateUser(string userId);
+        Task DeactivateUser(string userId);
     }
 }

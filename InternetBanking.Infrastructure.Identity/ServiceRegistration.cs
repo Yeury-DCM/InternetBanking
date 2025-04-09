@@ -113,6 +113,7 @@ namespace InternetBanking.Infrastructure.Identity
                     var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
+                     
                     await DefaultRoles.SeedAsync(roleManager);
                     await DefaultClientUser.SeedAsync(userManager);
                     await DefaultAdminUser.SeedAsync(userManager);

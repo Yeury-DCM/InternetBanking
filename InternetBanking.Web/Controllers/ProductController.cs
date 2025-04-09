@@ -1,28 +1,50 @@
-﻿using InternetBanking.Core.Application.Enums;
+﻿using Azure;
+using InternetBanking.Core.Application.Dtos;
+using InternetBanking.Core.Application.Enums;
+using InternetBanking.Core.Application.Helpers;
 using InternetBanking.Core.Application.Interfaces.Services;
+using InternetBanking.Core.Application.ViewModels.ProductVMS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InternetBanking.Web.Controllers
 {
-    [Authorize(Roles = "Client")]
+    
     public class ProductController : Controller
     {
         private readonly IDashboardService _dashboardService;
-        public ProductController(IDashboardService dashboardService)
+        private readonly IProductService _productService;
+        private readonly IAccountService _accountService;
+        public ProductController(IDashboardService dashboardService, IProductService productService, IAccountService accountService)
         {
             _dashboardService = dashboardService;
+            _productService = productService;
+            _accountService = accountService;
         }
 
-       
+
         // GET: ProductController
+        [Authorize(Roles = "Client")]
         public async Task<IActionResult> Index()
         {
             var vm = await _dashboardService.GetUserProductsInfo();
             return View(vm);
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminView(string userId, string? errorMessage = null)
+        {
+            var vm = await _dashboardService.GetUserProductsInfo(userId);
+            var user = await _accountService.GetUserViewModelByIdAsync(userId);
+            if(errorMessage!= null)
+            {
+                ViewBag.ErrorMessage = errorMessage;
+            }
+            ViewBag.UserId = userId;  
+            ViewBag.FullName = $"{user.FirstName} {user.LastName}";
+            return View("Index", vm);
+        }
        
         public ActionResult Details(int id)
         {
@@ -30,19 +52,20 @@ namespace InternetBanking.Web.Controllers
         }
 
         // GET: ProductController/Create
-        public ActionResult Create()
+        public ActionResult Create(int productType, string userId)
         {
-            return View();
+            return View("SaveProduct", new SaveProductViewModel() { ProductTypeID = productType, UserID = userId });
         }
 
         // POST: ProductController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(SaveProductViewModel saveProductViewModel)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                saveProductViewModel.ProductNumber = AccountNumberGenerator.Generate();
+                await _productService.Add(saveProductViewModel);
+                return RedirectToAction("AdminView", new { userId = saveProductViewModel.UserID });
             }
             catch
             {
@@ -50,46 +73,30 @@ namespace InternetBanking.Web.Controllers
             }
         }
 
-        // GET: ProductController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ProductController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProductController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+           
+       
 
         // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id)
         {
+            DeleteProductResponse response = new();
             try
             {
-                return RedirectToAction(nameof(Index));
+                 response = await _productService.DeleteProductAsync(id);
+
+                if(!response.IsSucess)
+                {
+                   return RedirectToAction("AdminView", new { userId = response.UserId, errorMessage = response.ErrorMessage});
+
+                }
             }
             catch
             {
-                return View();
             }
+
+            return RedirectToAction("AdminView", new { userId = response.UserId });
         }
     }
 }

@@ -1,85 +1,112 @@
-﻿//using InternetBanking.Core.Application.Interfaces.Repositories;
-//using InternetBanking.Core.Application.Interfaces.Services;
-//using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
-//using InternetBanking.Core.Domain.Entities;
+﻿using AutoMapper;
+using InternetBanking.Core.Application.Interfaces.Repositories;
+using InternetBanking.Core.Application.Interfaces.Services;
+using InternetBanking.Core.Application.ViewModels.BeneficiaryVMS;
+using InternetBanking.Core.Application.ViewModels.UserVMS;
+using InternetBanking.Core.Domain.Entities;
 
-//public class BeneficiaryService
-//{
-//    private readonly IBeneficiaryRepository _beneficiaryRepository;
-//    private readonly IAccountService _accountService;
+namespace InternetBanking.Core.Application.Services
+{
+    public class BeneficiaryService : GenericService<SaveBeneficiaryViewModel, BeneficiaryViewModel, Beneficiary>, IBeneficiaryService
+    {
+        private readonly IBeneficiaryRepository _beneficiaryRepository;
+        private readonly IAccountService _accountService;
+        private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
 
-//    public BeneficiaryService(IBeneficiaryRepository beneficiaryRepository, IAccountService accountService)
-//    {
-//        _beneficiaryRepository = beneficiaryRepository;
-//        _accountService = accountService;
-//    }
+        public BeneficiaryService(IBeneficiaryRepository beneficiaryRepository, IAccountService accountService,
+            IProductRepository productRepository, IMapper mapper) : base(beneficiaryRepository, mapper)
+        {
+            _beneficiaryRepository = beneficiaryRepository;
+            _accountService = accountService;
+            _productRepository = productRepository;
+            _mapper = mapper;
+        }
 
-//    public async Task Add(SaveBeneficiaryViewModel vm)
-//    {
-//        var beneficiary = new Beneficiary
-//        {
-//            Id = vm.Id,
-//            UserID = vm.UserId,
-//            ProductID = vm.ProductId
-//        };
+        public async Task AddBeneficiary(SaveBeneficiaryViewModel vm)
+        {
+            var products = await _productRepository.GetAllAsync();
+            var product = products.FirstOrDefault(p => p.ProductNumber == vm.AccountNumber);
 
-//        await _beneficiaryRepository.AddAsync(beneficiary);
-//    }
+            if (product == null)
+            {
+                throw new Exception("El número de cuenta proporcionado no existe.");
+            }
 
-//    public async Task Update(SaveBeneficiaryViewModel vm)
-//    {
-//        var beneficiary = await _beneficiaryRepository.GetByIdAsync(vm.Id);
+            UserViewModel user = await _accountService.GetUserViewModelByIdAsync(product.UserID);
 
-//        if (beneficiary == null)
-//        {
-//            throw new Exception("Beneficiary not found.");
-//        }
+            if (user == null || !user.IsActive)
+            {
+                throw new Exception("Usuario relacionado con el número de cuenta está inactivo.");
+            }
 
-//        beneficiary.UserID = vm.UserId;
-//        beneficiary.ProductID = vm.ProductId;
+            var beneficiary = _mapper.Map<Beneficiary>(vm);
+            beneficiary.ProductID = product.Id;
+            await _beneficiaryRepository.AddAsync(beneficiary);
+        }
 
-//        await _beneficiaryRepository.UpdateAsync(beneficiary, beneficiary.Id);
-//    }
+        public async Task DeleteBeneficiary(int beneficiaryId)
+        {
+            var beneficiary = await _beneficiaryRepository.GetByIdAsync(beneficiaryId);
+            if (beneficiary == null)
+            {
+                throw new Exception("Beneficiario no encontrado.");
+            }
+            await _beneficiaryRepository.DeleteAsync(beneficiary);
+        }
 
-//    public async Task<SaveBeneficiaryViewModel> GetById(int id)
-//    {
-//        var beneficiary = await _beneficiaryRepository.GetByIdAsync(id);
-//        if (beneficiary == null) return null;
+        public async Task<List<BeneficiaryViewModel>> GetAllBeneficiaries(string userId)
+        {
+            var beneficiaries = await _beneficiaryRepository.GetAllWithIncludesAsync(new List<string> { "account" });
+            var userBeneficiaries = beneficiaries.Where(b => b.UserID == userId).ToList();
+            return _mapper.Map<List<BeneficiaryViewModel>>(userBeneficiaries);
+        }
 
-//        var user = await _accountService.GetUserByIdAsync(beneficiary.UserID);
-//        if (user == null) return null;
+        // IGenericService implementation methods
+        public override async Task<SaveBeneficiaryViewModel> Add(SaveBeneficiaryViewModel viewModel)
+        {
+            try
+            {
+                await AddBeneficiary(viewModel);
+                return viewModel;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-//        return new SaveBeneficiaryViewModel
-//        {
-//            Id = beneficiary.Id,
-//            UserId = beneficiary.UserID,
-//            ProductId = beneficiary.ProductID,
-//            BeneficiaryFirstName = user.FirstName,
-//            BeneficiaryLastName = user.LastName
-//        };
-//    }
+        public new async Task<List<BeneficiaryViewModel>> GetAll()
+        {
+            var entities = await _beneficiaryRepository.GetAllAsync();
+            return _mapper.Map<List<BeneficiaryViewModel>>(entities);
+        }
 
-//    public async Task<List<BeneficiaryViewModel>> GetAllViewModel()
-//    {
-//        var beneficiaries = await _beneficiaryRepository.GetAllAsync();
+        public new async Task<BeneficiaryViewModel> GetById(int id)
+        {
+            var entity = await _beneficiaryRepository.GetByIdAsync(id);
+            if (entity == null)
+            {
+                throw new Exception($"Beneficiario con ID {id} no encontrado.");
+            }
+            return _mapper.Map<BeneficiaryViewModel>(entity);
+        }
 
-//        var beneficiaryViewModels = new List<BeneficiaryViewModel>();
-//        foreach (var beneficiary in beneficiaries)
-//        {
-//            var user = await _accountService.GetUserByIdAsync(beneficiary.UserID);
-//            if (user == null) continue;
+        public new async Task Update(SaveBeneficiaryViewModel viewModel)
+        {
+            var entity = await _beneficiaryRepository.GetByIdAsync(viewModel.Id);
+            if (entity == null)
+            {
+                throw new Exception($"Beneficiario con ID {viewModel.Id} no encontrado.");
+            }
 
-//            beneficiaryViewModels.Add(new BeneficiaryViewModel
-//            {
-//                Id = beneficiary.Id,
-//                UserId = beneficiary.UserID,
-//                ProductId = beneficiary.ProductID,
-//                BeneficiaryFullName = $"{user.FirstName} {user.LastName}",
-//                ProductType = beneficiary.Account?.Type ?? "Unknown",
-//                AccountNumber = beneficiary.Account?.Number ?? "Unknown"
-//            });
-//        }
+            entity = _mapper.Map(viewModel, entity);
+            await _beneficiaryRepository.UpdateAsync(entity, viewModel.Id);
+        }
 
-//        return beneficiaryViewModels;
-//    }
-//}
+        public new async Task DeleteById(int id)
+        {
+            await DeleteBeneficiary(id);
+        }
+    }
+}

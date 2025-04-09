@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetBanking.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20250325132228_InitialMigration")]
+    [Migration("20250328053752_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -49,9 +49,12 @@ namespace InternetBanking.Infrastructure.Identity.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdentificationNumer")
+                    b.Property<string>("IdentificationNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()

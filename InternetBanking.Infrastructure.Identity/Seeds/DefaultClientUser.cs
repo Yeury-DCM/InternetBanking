@@ -1,5 +1,6 @@
 ﻿
 using InternetBanking.Core.Application.Enums;
+using InternetBanking.Core.Domain.Entities;
 using InternetBanking.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 
@@ -14,14 +15,16 @@ namespace InternetBanking.Infrastructure.Identity.Seeds
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "client@email.com",
-                IdentificationNumer = "002-0034009-3",
+                IdentificationNumber = "002-0034009-3",
                 UserName = "clientUser",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 IsActive = true,
             };
 
-            if(userManager.Users.All(u => u.Id != defaultUser.Id))
+           
+
+            if (userManager.Users.All(u => u.Id != defaultUser.Id))
             {
 
                 var user = await userManager.FindByEmailAsync(defaultUser.Email);
@@ -34,7 +37,6 @@ namespace InternetBanking.Infrastructure.Identity.Seeds
 
             }
 
-            
         }
     }
 }

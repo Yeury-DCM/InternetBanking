@@ -18,6 +18,7 @@ builder.Services.AddApplicationLayer();
 var app = builder.Build();
 
 await app.Services.RunSeedAsync(builder.Configuration);
+await app.Services.RunProductTypeSeedAsync(builder.Configuration);
 
 
 // Configure the HTTP request pipeline.

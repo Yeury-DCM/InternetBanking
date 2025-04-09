@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InternetBanking.Core.Application.Dtos
 {
-    public class CreateUserResponse
+    public class SaveUserResponse
     {
         public string UserId { get; set; }
         public bool IsSucess { get; set; }

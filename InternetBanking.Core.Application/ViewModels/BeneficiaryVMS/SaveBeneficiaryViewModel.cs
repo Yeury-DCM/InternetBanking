@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InternetBanking.Core.Application.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace InternetBanking.Core.Application.ViewModels.BeneficiaryVMS
 {
-    public class SaveBeneficiaryViewModel
+    public class SaveBeneficiaryViewModel : IHasId
     {
         public int Id { get; set; }  // Identificador único de la relación de beneficiario
 
         [Required]
-        public int UserId { get; set; }  // ID del usuario que agrega al beneficiario
+        public string UserId { get; set; }  // ID del usuario que agrega al beneficiario
 
         [Required]
         public int ProductId { get; set; }  // ID del producto (cuenta) del beneficiario
